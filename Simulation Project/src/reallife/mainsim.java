@@ -7,9 +7,11 @@ public class mainsim {
 public static void main(String[] args) {
 	int noFactories=50;
 	ArrayList<factory> factorylist = createfactory(noFactories);
-	factorylist.get(1).createworkers();;
+	factorylist.get(1).createworkers();
+	factorylist.get(1).calculateAvgAge();
+	factorylist.get(1).calculateAvgcheckup();
 	factorylist.get(1).showWorkerList();
-	factorylist.toString();
+	System.out.print(factorylist.get(1).toString());
 }
 
 public static ArrayList<factory> createfactory(int FacNo) {

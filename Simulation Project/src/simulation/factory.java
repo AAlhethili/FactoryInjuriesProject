@@ -19,8 +19,6 @@ public factory(int iD) {
 	this.noworkers = generator.nextInt(451)+50;
 	this.regularcheckup = generator.nextBoolean();
 	this.timetohospital = generator.nextInt(51)+10;
-	avgcheckuprate=calculateAvgcheckup();
-	avgage=calculateAvgAge();
 	
 }
 public void createworkers() {
@@ -29,24 +27,30 @@ public void createworkers() {
 		worker a = new worker(i);
 		wlist.add(a);
 	}
+	if(regularcheckup==false) {
+		for(int i=0; i<=noworkers-1; i++) {
+			wlist.get(i).regularcheckuprate=0;
+		}
+	}
+		
 }
-public double calculateAvgAge() {
+public void calculateAvgAge() {
 	int sum=0;
 	double avgage;
 	for(int i=0; i<=noworkers-1; i++) {
 		sum+=wlist.get(i).age;
 	}
 	avgage=sum/noworkers;
-	return avgage;
+	this.avgage=avgage;
 }
-public double calculateAvgcheckup() {
+public void calculateAvgcheckup() {
 	int sum=0;
 	double avgage;
 	for(int i=0; i<=noworkers-1; i++) {
 		sum+=wlist.get(i).regularcheckuprate;
 	}
 	avgage=sum/noworkers;
-	return avgage;
+	avgcheckuprate=avgage;
 }
 public void showWorkerList() {
 	System.out.println("ID		Age		Checkup");
