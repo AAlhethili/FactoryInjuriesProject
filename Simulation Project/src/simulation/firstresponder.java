@@ -9,7 +9,7 @@ public class firstresponder extends medicaltreatment{
     private void Treatinjury(injuries current) {
         switch (current.lvl) {
             case 1:
-                treating= 3;
+                treating= 3
             case 2:
                 treating= 2;
             default:

@@ -4,6 +4,7 @@ import java.security.SecureRandom;
 import simulation.worker;
 
 public class factory {
+	
 SecureRandom generator = new SecureRandom();
 public int ID;
 public int noworkers;
@@ -17,6 +18,8 @@ public double avg;
 public double avgage;
 public int timetohospital;
 public int noOfinjuried=0;
+
+
 public factory(int iD) {
 
 	ID = iD;
@@ -26,7 +29,7 @@ public factory(int iD) {
 	this.regularcheckup = generator.nextBoolean();
 	this.timetohospital = generator.nextInt(51)+10;
 	this.avgage=Math.round(calculateAvgAge());
-	this.avgcheckuprate=calculateAvgcheckup();
+	this.avgcheckuprate=Math.round(calculateAvgcheckup());
 
 	
 }
@@ -53,13 +56,12 @@ public double calculateAvgAge() {
 	return avgage;
 }
 public double calculateAvgcheckup() {
-	int sum=0;
-	double avgage;
+	double sum=0;
+	double avgcheckuprate;
 	for(int i=0; i<=noworkers-1; i++) {
 		sum+=wlist.get(i).regularcheckuprate;
 	}
-	avgage=sum/noworkers;
-	avgcheckuprate=avgage;
+	avgcheckuprate=sum/(double)noworkers;
 	return avgcheckuprate;
 }
 public void showWorkerList() {
@@ -106,7 +108,7 @@ public double getAvgage() {
 public String toString() {
 	return "factory [ID=" + ID + ", noworkers=" + noworkers + ", regularcheckup=" + regularcheckup + ", avgcheckuprate="
 			+ avgcheckuprate + ", avgage=" + avgage + ", noOfinjuried=" + noOfinjuried + ", timetohospital="
-			+ timetohospital + "avg = " + avg +"]";
+			+ timetohospital + " avg = " + avg +"]";
 }
 
 }
