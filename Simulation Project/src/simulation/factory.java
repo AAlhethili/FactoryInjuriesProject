@@ -9,18 +9,23 @@ SecureRandom generator = new SecureRandom();
 public int ID;
 public int noworkers;
 public int noFirstResponders;
+public boolean regularcheckup;
+public double avgcheckup;
+public double avgcheckuprate;
+public double avg;
+public double avgage;
+public int timetohospital;
+public int Dailyinjuried;
+public int TotalInjuries;
+public int DialynoOfPermanantInjuried;
+public int TotalnoOfPermanantInjuried;
+
 public ArrayList<worker> wlist = new ArrayList<worker>();
 public ArrayList<worker> FirstResponders = new ArrayList<worker>();
 public ArrayList<worker> Availablelist = new ArrayList<worker>();
 public ArrayList<worker> Outlist = new ArrayList<worker>();
 public ArrayList<worker> retiredlist = new ArrayList<worker>();
-public boolean regularcheckup;
-public double avgcheckuprate;
-public double avg;
-public double avgcheckup;
-public double avgage;
-public int timetohospital;
-public int noOfinjuried=0;
+
 
 
 public factory(int iD) {
@@ -98,38 +103,44 @@ public int getNoworkers() {
 public void setNoworkers(int noworkers) {
 	this.noworkers = noworkers;
 }
-public boolean isRegularcheckup() {
-	return regularcheckup;
-}
-public void setRegularcheckup(boolean regularcheckup) {
-	this.regularcheckup = regularcheckup;
-}
-public int getNoOfinjuried() {
-	return noOfinjuried;
-}
-public void setNoOfinjuried(int noOfinjuried) {
-	this.noOfinjuried = noOfinjuried;
-}
+
 public int getTimetohospital() {
 	return timetohospital;
 }
 public void setTimetohospital(int timetohospital) {
 	this.timetohospital = timetohospital;
 }
-public int getID() {
-	return ID;
+public int getDailyinjuried() {
+	return Dailyinjuried;
 }
-public double getAvgcheckuprate() {
-	return avgcheckuprate;
+public void setDailyinjuried(int dailyinjuried) {
+	Dailyinjuried = dailyinjuried;
 }
-public double getAvgage() {
-	return avgage;
+public int getTotalInjuries() {
+	return TotalInjuries;
 }
+public void setTotalInjuries(int totalInjuries) {
+	TotalInjuries = totalInjuries;
+}
+public int getDialynoOfPermanantInjuried() {
+	return DialynoOfPermanantInjuried;
+}
+public void setDialynoOfPermanantInjuried(int dialynoOfPermanantInjuried) {
+	DialynoOfPermanantInjuried = dialynoOfPermanantInjuried;
+}
+public int getTotalnoOfPermanantInjuried() {
+	return TotalnoOfPermanantInjuried;
+}
+public void setTotalnoOfPermanantInjuried(int totalnoOfPermanantInjuried) {
+	TotalnoOfPermanantInjuried = totalnoOfPermanantInjuried;
+}
+
+
 @Override
 public String toString() {
 	return "factory [ID=" + String.format("%02d",ID) + "| noworkers=" + String.format("%03d",noworkers)  + "| avgcheckuprate="
-			+ avgcheckuprate + "| avgage=" + avgage + "| noOfinjuried=" + noOfinjuried + "| timetohospital="
-			+ timetohospital + "| First Responders = " + String.format("%03d", noFirstResponders) + "| regularcheckup=" + regularcheckup +"]";
+			+ avgcheckuprate + "| avgage=" + avgage + "| noOfinjuried=" + TotalInjuries + "| timetohospital="
+			+ timetohospital + "| First Responders = " + String.format("%02d", ((int)Math.round(((double)noFirstResponders/(double)noworkers)*100)))+"%" + "| regularcheckup=" + regularcheckup +"]";
 }
 
 }

@@ -1,6 +1,6 @@
 package simulation;
 
-public class infirmaryroom extends medicaltreatment{
+public class infirmaryroom extends medicalintervention{
     int treating=0;
     boolean cantreat;
     public infirmaryroom(injuries current){
