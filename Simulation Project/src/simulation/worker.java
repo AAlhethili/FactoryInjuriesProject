@@ -14,6 +14,7 @@ private int timetillpermenant;
 private int healingtime;
 private injuries current;
 private medicalcondition conds;
+injuries[] injurytypes = injuries.values();
 
 
 
@@ -26,7 +27,7 @@ public worker(int id, double avg, double avgcheck) {
 		age=generator.nextGaussian()*10+avg;
 	}
 	age=Math.round(age);
-	
+	conds=medicalcondition.none;
 	int random = generator.nextInt(3)+1;
 	if(age>=50) {
 		switch (random){

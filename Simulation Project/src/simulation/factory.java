@@ -7,20 +7,20 @@ public class factory {
 	
 SecureRandom generator = new SecureRandom();
 public int ID;
-public int noworkers;
-public int noFirstResponders;
-public int noInfirmaryRooms;
-public int noMedKits;
-public boolean regularcheckup;
-public double avgcheckup;
-public double avgcheckuprate;
-public double avg;
-public double avgage;
-public int timetohospital;
-public int Dailyinjuried;
-public int TotalInjuries;
-public int DialynoOfPermanantInjuried;
-public int TotalnoOfPermanantInjuried;
+private int noworkers;
+private int noFirstResponders;
+private int noInfirmaryRooms;
+private int noMedKits;
+private boolean regularcheckup;
+private double avgcheckup;
+private double avgcheckuprate;
+private double avg;
+private double avgage;
+private int timetohospital;
+private int Dailyinjuried;
+private int TotalInjuries;
+private int DialynoOfPermanantInjuried;
+private int TotalnoOfPermanantInjuried;
 
 public ArrayList<worker> wlist = new ArrayList<worker>();
 public ArrayList<worker> FirstResponders = new ArrayList<worker>();
@@ -36,12 +36,14 @@ public factory(int iD) {
 	ID = iD;
 	avg = generator.nextInt(36)+25;
 	avgcheckup= generator.nextInt(4)+1;
-	this.regularcheckup = generator.nextBoolean();
+	regularcheckup = generator.nextBoolean();
 	createworkers(generator.nextInt(451)+50);
-	this.noworkers=wlist.size();
-	this.timetohospital = Math.round((generator.nextInt(51)+10)/10)*10;
-	this.avgage=Math.round(calculateAvgAge());
-	this.avgcheckuprate=Math.round(calculateAvgcheckup());
+	noworkers=wlist.size();
+	createRooms((int)Math.round((double)noworkers/100.0));
+	createFirstAidKits((int)Math.round((double)noworkers/25.0));
+	timetohospital = Math.round((generator.nextInt(51)+10)/10)*10;
+	avgage=Math.round(calculateAvgAge());
+	avgcheckuprate=Math.round(calculateAvgcheckup());
 	for(int i=0; i<=noworkers-1; i++) {
 		if(wlist.get(i) instanceof medicallytrainedworker) {
 			FirstResponders.add(wlist.get(i));
@@ -72,6 +74,23 @@ public void createworkers(int noworkers) {
 			}
 			wlist.get(i).setRegularcheckuprate(above0);
 		}
+	}
+		
+}
+public void createRooms(int noRooms) {
+	
+	for(int i=0; i<=noRooms; i++) {
+		infirmaryroom room = new infirmaryroom();
+		InfirmaryRooms.add(room);
+	}
+		
+}
+public void createFirstAidKits(int noKits) {
+	
+	for(int i=0; i<=noKits; i++) {
+		medicalintervention kit = new FirstAidKit();
+		if(kit instanceof FirstAidKit) {
+		FirstAidkits.add(kit);}
 	}
 		
 }
@@ -144,6 +163,18 @@ public String toString() {
 	return "factory [ID=" + String.format("%02d",ID) + "| noworkers=" + String.format("%03d",noworkers)  + "| avgcheckuprate="
 			+ avgcheckuprate + "| avgage=" + avgage + "| noOfinjuried=" + TotalInjuries + "| timetohospital="
 			+ timetohospital + "| First Responders = " + String.format("%02d", ((int)Math.round(((double)noFirstResponders/(double)noworkers)*100)))+"%" + "| regularcheckup=" + regularcheckup +"]";
+}
+public int getNoMedKits() {
+	return noMedKits;
+}
+public void setNoMedKits(int noMedKits) {
+	this.noMedKits = noMedKits;
+}
+public int getNoInfirmaryRooms() {
+	return noInfirmaryRooms;
+}
+public void setNoInfirmaryRooms(int noInfirmaryRooms) {
+	this.noInfirmaryRooms = noInfirmaryRooms;
 }
 
 }
