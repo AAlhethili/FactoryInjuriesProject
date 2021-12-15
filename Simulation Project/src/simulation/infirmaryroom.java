@@ -7,7 +7,7 @@ public class infirmaryroom extends medicalintervention{
 		 
 	 }
 		public void treatmentadminstraition(worker a) {
-			timeTotreat=a.healingtime;
+			timeTotreat=a.getHealingtime();
 			availble=false;
 		}
 

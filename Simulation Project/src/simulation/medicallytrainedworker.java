@@ -21,7 +21,7 @@ public class medicallytrainedworker extends worker implements medicaltreatmant {
 	public void finishedTratment(int simulationtime,worker injuired) {
 		if(simulationtime==timetoFinishTreatment) {
 			injuired.setInjuired(false);
-			injuired.setCurrent();e
+			injuired.setCurrent(injuries.None);
 			setReadiness(true);
 			
 		}

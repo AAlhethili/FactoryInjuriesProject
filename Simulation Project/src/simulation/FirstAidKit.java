@@ -8,7 +8,7 @@ public class FirstAidKit extends medicalintervention {
 	 
  }
 	public void treatmentadminstraition(worker a) {
-		timeTotreat=a.healingtime;
+		timeTotreat=a.getHealingtime();
 		availble=false;
 	}
 
