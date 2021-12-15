@@ -7,13 +7,13 @@ public class worker {
 
 SecureRandom generator = new SecureRandom();
 public int id;
-public double age;
-public double regularcheckuprate;
-public boolean injuired;
-public int timetillpermenant;
-public int healingtime;
-public injuries current;
-public medicalcondition conds;
+private double age;
+private double regularcheckuprate;
+private boolean injuired;
+private int timetillpermenant;
+private int healingtime;
+private injuries current;
+private medicalcondition conds;
 
 
 
@@ -56,6 +56,8 @@ public worker(int id, double avg, double avgcheck) {
 	}
 	
 	regularcheckuprate=avgcheck;
+	setCurrent(injuries.None);
+	setHealingtime(current.healingtime);
 }	
 	
 
@@ -71,7 +73,7 @@ public double getRegularcheckuprate() {
 	return regularcheckuprate;
 }
 
-public void setRegularcheckuprate(int regularcheckuprate) {
+public void setRegularcheckuprate(double regularcheckuprate) {
 	this.regularcheckuprate = regularcheckuprate;
 }
 
@@ -81,6 +83,46 @@ public injuries getCurrent() {
 
 public void setCurrent(injuries current) {
 	this.current = current;
+}
+
+
+public boolean isInjuired() {
+	return injuired;
+}
+
+
+public void setInjuired(boolean injuired) {
+	this.injuired = injuired;
+}
+
+
+public int getTimetillpermenant() {
+	return timetillpermenant;
+}
+
+
+public void setTimetillpermenant(int timetillpermenant) {
+	this.timetillpermenant = timetillpermenant;
+}
+
+
+public int getHealingtime() {
+	return healingtime;
+}
+
+
+public void setHealingtime(int healingtime) {
+	this.healingtime = healingtime;
+}
+
+
+public medicalcondition getConds() {
+	return conds;
+}
+
+
+public void setConds(medicalcondition conds) {
+	this.conds = conds;
 }
 
 

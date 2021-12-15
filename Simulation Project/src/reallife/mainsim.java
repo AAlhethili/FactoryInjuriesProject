@@ -5,7 +5,7 @@ import simulation.worker;
 
 public class mainsim {
 public static void main(String[] args) {
-	int noFactories=50;
+	int noFactories=20;
 	ArrayList<factory> factorylist = createfactory(noFactories);
 	for(int j=0; j<noFactories; j++) {
 	System.out.println(factorylist.get(j).toString());

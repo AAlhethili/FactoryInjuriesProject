@@ -9,6 +9,8 @@ SecureRandom generator = new SecureRandom();
 public int ID;
 public int noworkers;
 public int noFirstResponders;
+public int noInfirmaryRooms;
+public int noMedKits;
 public boolean regularcheckup;
 public double avgcheckup;
 public double avgcheckuprate;
@@ -25,8 +27,9 @@ public ArrayList<worker> FirstResponders = new ArrayList<worker>();
 public ArrayList<worker> Availablelist = new ArrayList<worker>();
 public ArrayList<worker> Outlist = new ArrayList<worker>();
 public ArrayList<worker> retiredlist = new ArrayList<worker>();
-
-
+public ArrayList<medicalintervention> MedicalIntervention = new ArrayList<medicalintervention>();
+public ArrayList<medicalintervention> FirstAidkits = new ArrayList<medicalintervention>();
+public ArrayList<medicalintervention> InfirmaryRooms = new ArrayList<medicalintervention>();
 
 public factory(int iD) {
 
@@ -67,7 +70,7 @@ public void createworkers(int noworkers) {
 			{
 			above0 = generator.nextGaussian()*0.6;	
 			}
-			wlist.get(i).regularcheckuprate=above0;
+			wlist.get(i).setRegularcheckuprate(above0);
 		}
 	}
 		
@@ -76,7 +79,7 @@ public double calculateAvgAge() {
 	double sum=0;
 	double avgage;
 	for(int i=0; i<=noworkers-1; i++) {
-		sum+=wlist.get(i).age;
+		sum+=wlist.get(i).getAge();
 	}
 	avgage=sum/(double)noworkers;
 	return avgage;
@@ -85,7 +88,7 @@ public double calculateAvgcheckup() {
 	double sum=0;
 	double avgcheckuprate;
 	for(int i=0; i<=noworkers-1; i++) {
-		sum+=wlist.get(i).regularcheckuprate;
+		sum+=wlist.get(i).getRegularcheckuprate();
 	}
 	avgcheckuprate=sum/(double)noworkers;
 	return avgcheckuprate;
@@ -93,7 +96,7 @@ public double calculateAvgcheckup() {
 public void showWorkerList() {
 	System.out.println("ID		Age		Checkup");
 	for(int i=0; i<=noworkers-1; i++) {
-		System.out.println(wlist.get(i).id+"		"+wlist.get(i).age+"		"+wlist.get(i).regularcheckuprate);
+		System.out.println(wlist.get(i).id+"		"+wlist.get(i).getAge()+"		"+wlist.get(i).getRegularcheckuprate());
 	}
 }
 

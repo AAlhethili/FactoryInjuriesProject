@@ -2,25 +2,50 @@ package simulation;
 
 public class medicallytrainedworker extends worker implements medicaltreatmant {
 
-	public int timetoFinishTreatment;
-	public boolean readiness;
+	private int timetoFinishTreatment;
+	private int Rangeofcaplbility;
+	private boolean readiness;
 	
 	public medicallytrainedworker(int id, double avg, double avgcheck) {
 		super(id,avg, avgcheck);
-		readiness=true;
+		setRangeofcaplbility(2);
+		setReadiness(true);
 	}
 
 
 	public void treatmentadminstraition(worker a) {
-		timetoFinishTreatment=a.healingtime;
-		readiness=false;
+		timetoFinishTreatment=a.getHealingtime();
+		setReadiness(false);
 	}
 
-	public void finishedTratment(int simulationtime) {
+	public void finishedTratment(int simulationtime,worker injuired) {
 		if(simulationtime==timetoFinishTreatment) {
-			readiness=true;
+			injuired.setInjuired(false);
+			injuired.setCurrent();e
+			setReadiness(true);
+			
 		}
 
+	}
+
+
+	public int getRangeofcaplbility() {
+		return Rangeofcaplbility;
+	}
+
+
+	public void setRangeofcaplbility(int rangeofcaplbility) {
+		Rangeofcaplbility = rangeofcaplbility;
+	}
+
+
+	public boolean isReadiness() {
+		return readiness;
+	}
+
+
+	public void setReadiness(boolean readiness) {
+		this.readiness = readiness;
 	}
 
 }
