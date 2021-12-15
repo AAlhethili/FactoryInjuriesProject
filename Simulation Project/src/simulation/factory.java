@@ -8,23 +8,32 @@ SecureRandom generator = new SecureRandom();
 public int ID;
 public int noworkers;
 public ArrayList<worker> wlist = new ArrayList<worker>();
+public ArrayList<worker> Availablelist = new ArrayList<worker>();
+public ArrayList<worker> Outlist = new ArrayList<worker>();
+public ArrayList<worker> retiredlist = new ArrayList<worker>();
 public boolean regularcheckup;
 public double avgcheckuprate;
+public double avg;
 public double avgage;
-public int noOfinjuried;
 public int timetohospital;
+public int noOfinjuried=0;
 public factory(int iD) {
 
 	ID = iD;
-	this.noworkers = generator.nextInt(451)+50;
+	avg = generator.nextInt(36)+25;
+	createworkers(generator.nextInt(451)+50);
+	this.noworkers=wlist.size();
 	this.regularcheckup = generator.nextBoolean();
 	this.timetohospital = generator.nextInt(51)+10;
+	this.avgage=Math.round(calculateAvgAge());
+	this.avgcheckuprate=calculateAvgcheckup();
+
 	
 }
-public void createworkers() {
+public void createworkers(int noworkers) {
 	
 	for(int i=1; i<=noworkers; i++) {
-		worker a = new worker(i);
+		worker a = new worker(i,avg);
 		wlist.add(a);
 	}
 	if(regularcheckup==false) {
@@ -34,16 +43,16 @@ public void createworkers() {
 	}
 		
 }
-public void calculateAvgAge() {
-	int sum=0;
+public double calculateAvgAge() {
+	double sum=0;
 	double avgage;
 	for(int i=0; i<=noworkers-1; i++) {
 		sum+=wlist.get(i).age;
 	}
-	avgage=sum/noworkers;
-	this.avgage=avgage;
+	avgage=sum/(double)noworkers;
+	return avgage;
 }
-public void calculateAvgcheckup() {
+public double calculateAvgcheckup() {
 	int sum=0;
 	double avgage;
 	for(int i=0; i<=noworkers-1; i++) {
@@ -51,6 +60,7 @@ public void calculateAvgcheckup() {
 	}
 	avgage=sum/noworkers;
 	avgcheckuprate=avgage;
+	return avgcheckuprate;
 }
 public void showWorkerList() {
 	System.out.println("ID		Age		Checkup");
@@ -96,7 +106,7 @@ public double getAvgage() {
 public String toString() {
 	return "factory [ID=" + ID + ", noworkers=" + noworkers + ", regularcheckup=" + regularcheckup + ", avgcheckuprate="
 			+ avgcheckuprate + ", avgage=" + avgage + ", noOfinjuried=" + noOfinjuried + ", timetohospital="
-			+ timetohospital + "]";
+			+ timetohospital + "avg = " + avg +"]";
 }
 
 }
