@@ -11,10 +11,10 @@ public static void main(String[] args) {
 	System.out.println(factorylist.get(j).toString());
 	}
 	
-	//for(int j=0; j<factorylist.get(0).getNoworkers(); j++) {
-	//System.out.println(factorylist.get(0).wlist.get(j).getAge());
-	
-	//}
+//	for(int j=0; j<factorylist.get(0).getNoworkers(); j++) {
+//	System.out.println(factorylist.get(0).wlist.get(j).getAge());
+//	
+//	}
 }
 
 public static ArrayList<factory> createfactory(int FacNo) {

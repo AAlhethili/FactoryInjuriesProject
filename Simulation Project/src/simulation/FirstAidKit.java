@@ -1,6 +1,6 @@
 package simulation;
 
-public class FirstAidKit extends medicaltreatment{
+public class FirstAidKit extends medicaltreatment implements medicaltreatmant{
     boolean cantreat;
     int treatinjury=0;
     public FirstAidKit(injuries current){
