@@ -41,7 +41,7 @@ public worker(int id, double avg, double avgcheck) {
 			conds=(medicalcondition.deficincy);
 			break;
 		}
-		if(age<50&&(generator.nextInt(10)+1)==1) {
+		if(age<50&&(generator.nextInt(10))==0) {
 			switch (random){
 			case 1:
 				conds=medicalcondition.baddiet;
@@ -60,7 +60,17 @@ public worker(int id, double avg, double avgcheck) {
 	setCurrent(injuries.None);
 	setHealingtime(current.healingtime);
 }	
-	
+
+public void addinjury() {
+	int random=generator.nextInt(injurytypes.length-1);
+	while(random==9) {
+		random=generator.nextInt(injurytypes.length-1);
+	}
+	current=injurytypes[random];
+}
+public void removeinjury() {
+	current=injurytypes[9];
+}
 
 public double getAge() {
 	return age;
