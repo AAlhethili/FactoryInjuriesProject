@@ -10,7 +10,8 @@ public static void main(String[] args) {
 	for(int j=0; j<noFactories; j++) {
 	System.out.println(factorylist.get(j).toString());
 	}
-	
+//	System.out.println(factorylist.get(0).toString());
+//	factorylist.get(0).showWorkerList();
 //	for(int j=0; j<factorylist.get(0).getNoworkers(); j++) {
 //	System.out.println(factorylist.get(0).wlist.get(j).getAge());
 //	

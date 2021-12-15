@@ -127,9 +127,9 @@ public double getAvgage() {
 }
 @Override
 public String toString() {
-	return "factory [ID=" + ID + ", noworkers=" + noworkers + ", regularcheckup=" + regularcheckup + ", avgcheckuprate="
-			+ avgcheckuprate + ", avgage=" + avgage + ", noOfinjuried=" + noOfinjuried + ", timetohospital="
-			+ timetohospital + " First Responders = " + noFirstResponders +"]";
+	return "factory [ID=" + String.format("%02d",ID) + "| noworkers=" + String.format("%03d",noworkers)  + "| avgcheckuprate="
+			+ avgcheckuprate + "| avgage=" + avgage + "| noOfinjuried=" + noOfinjuried + "| timetohospital="
+			+ timetohospital + "| First Responders = " + String.format("%03d", noFirstResponders) + "| regularcheckup=" + regularcheckup +"]";
 }
 
 }
