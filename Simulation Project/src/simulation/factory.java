@@ -118,6 +118,24 @@ public void showWorkerList() {
 		System.out.println(wlist.get(i).id+"		"+wlist.get(i).getAge()+"		"+wlist.get(i).getRegularcheckuprate());
 	}
 }
+public int avalibleMidkits() {
+	int noOfavailble=0;
+	for(int i=0; i<FirstAidkits.size(); i++) {
+		if(FirstAidkits.get(i).isAvailble()==true) {
+			noOfavailble+=1;
+		}
+	}
+	return noOfavailble;	
+}
+public int avalibleRooms() {
+	int noOfavailble=0;
+	for(int i=0; i<InfirmaryRooms.size(); i++) {
+		if(InfirmaryRooms.get(i).isAvailble()==true) {
+			noOfavailble+=1;
+		}
+	}
+	return noOfavailble;	
+}
 
 public int getNoworkers() {
 	return noworkers;

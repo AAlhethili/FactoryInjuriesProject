@@ -2,11 +2,7 @@ package simulation;
 
 public interface medicaltreatmant {
 	
-	default void treatmentadminstraition(worker sick) {
-	
-}
-	default void finishedTreatment(int simulationtime) {
-
-	}
+	abstract void treatmentadminstraition();
+	abstract void finishedTreatment();
 
 }

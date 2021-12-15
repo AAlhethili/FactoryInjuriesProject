@@ -10,4 +10,13 @@ public class hospital extends medicalintervention{
     public void treatment(worker injuried, int  currenttime ) {
     	
     }
+
+	public void treatmentadminstraition() {
+		
+	}
+
+	public void finishedTreatment() {
+
+		
+	}
 }

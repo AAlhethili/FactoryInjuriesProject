@@ -20,4 +20,30 @@ public enum injuries {
 		pt=permenanttime;
 		lvl=level;
 	}
+
+	public int getHealingtime() {
+		return healingtime;
+	}
+
+	public void setHealingtime(int healingtime) {
+		this.healingtime = healingtime;
+	}
+
+	public int getPermenanttime() {
+		return permenanttime;
+	}
+
+	public void setPermenanttime(int permenanttime) {
+		this.permenanttime = permenanttime;
+	}
+
+	public int getLvl() {
+		return lvl;
+	}
+
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
+	
+	
 }
