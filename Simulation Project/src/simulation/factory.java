@@ -8,7 +8,9 @@ public class factory {
 SecureRandom generator = new SecureRandom();
 public int ID;
 public int noworkers;
+public int noFirstResponders;
 public ArrayList<worker> wlist = new ArrayList<worker>();
+public ArrayList<worker> FirstResponders = new ArrayList<worker>();
 public ArrayList<worker> Availablelist = new ArrayList<worker>();
 public ArrayList<worker> Outlist = new ArrayList<worker>();
 public ArrayList<worker> retiredlist = new ArrayList<worker>();
@@ -32,22 +34,33 @@ public factory(int iD) {
 	this.timetohospital = Math.round((generator.nextInt(51)+10)/10)*10;
 	this.avgage=Math.round(calculateAvgAge());
 	this.avgcheckuprate=Math.round(calculateAvgcheckup());
-
+	for(int i=0; i<=noworkers-1; i++) {
+		if(wlist.get(i) instanceof medicallytrainedworker) {
+			FirstResponders.add(wlist.get(i));
+		}
+	}
+	noFirstResponders=FirstResponders.size();
 	
 }
 public void createworkers(int noworkers) {
 	
 	for(int i=1; i<=noworkers; i++) {
+		if(generator.nextInt(40)==0) {
+		worker a = new medicallytrainedworker(i,avg,avgcheckup);
+		wlist.add(a);
+		}
+		else {
 		worker a = new worker(i,avg,avgcheckup);
 		wlist.add(a);
+		}
 	}
 	if(regularcheckup==false) {
 		for(int i=0; i<=noworkers-1; i++) {
 			
-			double above0 = generator.nextGaussian()*2;
+			double above0 = generator.nextGaussian()*0.6;
 			while(above0<0||above0>4)
 			{
-			above0 = generator.nextGaussian()*2;	
+			above0 = generator.nextGaussian()*0.6;	
 			}
 			wlist.get(i).regularcheckuprate=above0;
 		}
@@ -116,7 +129,7 @@ public double getAvgage() {
 public String toString() {
 	return "factory [ID=" + ID + ", noworkers=" + noworkers + ", regularcheckup=" + regularcheckup + ", avgcheckuprate="
 			+ avgcheckuprate + ", avgage=" + avgage + ", noOfinjuried=" + noOfinjuried + ", timetohospital="
-			+ timetohospital + " avg = " + avg +"]";
+			+ timetohospital + " First Responders = " + noFirstResponders +"]";
 }
 
 }
