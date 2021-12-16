@@ -133,13 +133,19 @@ public void treatWorker(worker injuried, int simTime) {
 			MedicalIntervention.get(i).treatmentadminstraition(injuried, simTime);
 		}
 	}
-	if(!injuried.isBeingTreated()){
-		
-	}
+	injuried.ambulance();
+	injuried.getHospitalcall().treatmentadminstraition(injuried, simTime);
 }
+
 public void workeroutofWork(worker injuried) {
 	Injuriedlist.add(injuried);
 	wlist.remove((injuried.id)-1);	
+}
+public void workerAfterTreatment(worker AT) {
+	if(!AT.isInjuired()) {
+	Injuriedlist.remove(Injuriedlist.indexOf(AT));
+	wlist.add(AT.getId()-1, AT);
+	}
 }
 public void showWorkerList() {
 	System.out.println("ID		Age		Checkup");
@@ -205,6 +211,36 @@ public void setTotalnoOfPermanantInjuried(int totalnoOfPermanantInjuried) {
 }
 
 
+public boolean isRegularcheckup() {
+	return regularcheckup;
+}
+public void setRegularcheckup(boolean regularcheckup) {
+	this.regularcheckup = regularcheckup;
+}
+public ArrayList<worker> getWlist() {
+	return wlist;
+}
+public void setWlist(ArrayList<worker> wlist) {
+	this.wlist = wlist;
+}
+public ArrayList<worker> getInjuriedlist() {
+	return Injuriedlist;
+}
+public void setInjuriedlist(ArrayList<worker> injuriedlist) {
+	Injuriedlist = injuriedlist;
+}
+public ArrayList<worker> getRetiredlist() {
+	return retiredlist;
+}
+public void setRetiredlist(ArrayList<worker> retiredlist) {
+	this.retiredlist = retiredlist;
+}
+public ArrayList<medicalintervention> getMedicalIntervention() {
+	return MedicalIntervention;
+}
+public void setMedicalIntervention(ArrayList<medicalintervention> medicalIntervention) {
+	MedicalIntervention = medicalIntervention;
+}
 @Override
 public String toString() {
 	return "factory [ID=" + String.format("%02d",ID) + "| noworkers=" + String.format("%03d",noworkers)  + "| avgcheckuprate="

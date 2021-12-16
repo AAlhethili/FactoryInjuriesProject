@@ -17,14 +17,16 @@ public static void main(String[] args) {
 		for(int i = 0; i<factorylist.size(); i++) {
 		int injuryHappened = generator.nextInt(5);
 		factory selectedFactory = factorylist.get(i);
-		if(injuryHappened==0) {
+		if(injuryHappened==2) {
 			worker injuried=selectedFactory.chooseRandomworker();
 			injuried.addinjury();
 			selectedFactory.workeroutofWork(injuried);
 		}
-		 ArrayList<worker> injuriedlist = selectedFactory.Injuriedlist;
-		 if(injuriedlist.size()>0) {
-		for(int j = 0; j<injuriedlist.size(); j++) {
+		 
+		 if(selectedFactory.getInjuriedlist().size()>0) {
+		for(int j = 0; j<selectedFactory.getInjuriedlist().size(); j++) {
+			selectedFactory.treatWorker(selectedFactory.getInjuriedlist().get(j), simCurrentTime);
+			}
 //			for(int k = 0; k<selectedFactory.MedicalIntervention.size(); j++) {
 //				
 //			}

@@ -14,7 +14,9 @@ private double regularcheckuprate;
 private boolean injuired;
 private boolean beingTreated;
 private boolean waitingForAmbulance;
+private medicalintervention hospitalcall = new hospital();
 private int timetillpermenant;
+private boolean permenatlyinjuried;
 private int healingtime;
 private injuries current;
 private medicalcondition conds;
@@ -26,6 +28,7 @@ public worker(int id, double avg, double avgcheck) {
 	
 	this.id=id;
 	injuired=false;
+	permenatlyinjuried=false;
 	age=generator.nextGaussian()*10+avg;
 	while(age<20||age>70) {
 		age=generator.nextGaussian()*10+avg;
@@ -98,6 +101,11 @@ public int regularCheckupTime(double freaquency) {
 }
 public void removeinjury() {
 	current=injurytypes[9];
+}
+public void ambulance() {
+	if(!isWaitingForAmbulance()) {
+		hospitalcall= new hospital();
+	}
 }
 
 public double getAge() {
@@ -179,6 +187,30 @@ public boolean isWaitingForAmbulance() {
 
 public void setWaitingForAmbulance(boolean waitingForAmbulance) {
 	this.waitingForAmbulance = waitingForAmbulance;
+}
+
+public boolean isPermenatlyinjuried() {
+	return permenatlyinjuried;
+}
+
+public void setPermenatlyinjuried(boolean permenatlyinjuried) {
+	this.permenatlyinjuried = permenatlyinjuried;
+}
+
+public medicalintervention getHospitalcall() {
+	return hospitalcall;
+}
+
+public void setHospitalcall(medicalintervention hospitalcall) {
+	this.hospitalcall = hospitalcall;
+}
+
+public int getId() {
+	return id;
+}
+
+public void setId(int id) {
+	this.id = id;
 }
 
 
