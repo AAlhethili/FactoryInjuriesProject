@@ -1,5 +1,6 @@
 package simulation;
 import java.util.ArrayList;
+import java.util.Random;
 import java.security.SecureRandom;
 import simulation.worker;
 
@@ -9,8 +10,8 @@ SecureRandom generator = new SecureRandom();
 public int ID;
 private int noworkers;
 private int noFirstResponders;
-private int noInfirmaryRooms;
-private int noMedKits;
+//private int noInfirmaryRooms;
+//private int noMedKits;
 private boolean regularcheckup;
 private double avgcheckup;
 private double avgcheckuprate;
@@ -25,11 +26,11 @@ private int TotalnoOfPermanantInjuried;
 public ArrayList<worker> wlist = new ArrayList<worker>();
 public ArrayList<worker> FirstResponders = new ArrayList<worker>();
 public ArrayList<worker> Availablelist = new ArrayList<worker>();
-public ArrayList<worker> Outlist = new ArrayList<worker>();
+public ArrayList<worker> Injuriedlist = new ArrayList<worker>();
 public ArrayList<worker> retiredlist = new ArrayList<worker>();
 public ArrayList<medicalintervention> MedicalIntervention = new ArrayList<medicalintervention>();
-public ArrayList<medicalintervention> FirstAidkits = new ArrayList<medicalintervention>();
-public ArrayList<medicalintervention> InfirmaryRooms = new ArrayList<medicalintervention>();
+//public ArrayList<medicalintervention> FirstAidkits = new ArrayList<medicalintervention>();
+//public ArrayList<medicalintervention> InfirmaryRooms = new ArrayList<medicalintervention>();
 
 public factory(int iD) {
 
@@ -39,8 +40,8 @@ public factory(int iD) {
 	regularcheckup = generator.nextBoolean();
 	createworkers(generator.nextInt(451)+50);
 	noworkers=wlist.size();
-	createRooms((int)Math.round((double)noworkers/100.0));
 	createFirstAidKits((int)Math.round((double)noworkers/25.0));
+	createRooms((int)Math.round((double)noworkers/100.0));
 	timetohospital = Math.round((generator.nextInt(51)+10)/10)*10;
 	avgage=Math.round(calculateAvgAge());
 	avgcheckuprate=Math.round(calculateAvgcheckup());
@@ -81,7 +82,7 @@ public void createRooms(int noRooms) {
 	
 	for(int i=0; i<=noRooms; i++) {
 		infirmaryroom room = new infirmaryroom();
-		InfirmaryRooms.add(room);
+		MedicalIntervention.add(room);
 	}
 		
 }
@@ -90,7 +91,7 @@ public void createFirstAidKits(int noKits) {
 	for(int i=0; i<=noKits; i++) {
 		medicalintervention kit = new FirstAidKit();
 		if(kit instanceof FirstAidKit) {
-		FirstAidkits.add(kit);}
+		MedicalIntervention.add(kit);}
 	}
 		
 }
@@ -112,30 +113,58 @@ public double calculateAvgcheckup() {
 	avgcheckuprate=sum/(double)noworkers;
 	return avgcheckuprate;
 }
+public worker chooseRandomworker(){
+	worker randomSelect = wlist.get(generator.nextInt(wlist.size()-1));
+	return randomSelect;
+}
+public void treatWorker(worker injuried, int simTime) {
+	if (injuried.getCurrent().lvl==2) {
+		for(int i=0; i<wlist.size();i++) {
+			worker firstresponder=wlist.get(i);
+			if(firstresponder instanceof medicallytrainedworker) {
+				((medicallytrainedworker) firstresponder).treatmentadminstraition(injuried, simTime);
+			}
+			
+			
+		}
+	}
+	else {
+		for(int i=0; i<MedicalIntervention.size();i++) {
+			MedicalIntervention.get(i).treatmentadminstraition(injuried, simTime);
+		}
+	}
+	if(!injuried.isBeingTreated()){
+		
+	}
+}
+public void workeroutofWork(worker injuried) {
+	Injuriedlist.add(injuried);
+	wlist.remove((injuried.id)-1);	
+}
 public void showWorkerList() {
 	System.out.println("ID		Age		Checkup");
 	for(int i=0; i<=noworkers-1; i++) {
 		System.out.println(wlist.get(i).id+"		"+wlist.get(i).getAge()+"		"+wlist.get(i).getRegularcheckuprate());
 	}
 }
-public int avalibleMidkits() {
-	int noOfavailble=0;
-	for(int i=0; i<FirstAidkits.size(); i++) {
-		if(FirstAidkits.get(i).isAvailble()==true) {
-			noOfavailble+=1;
-		}
-	}
-	return noOfavailble;	
-}
-public int avalibleRooms() {
-	int noOfavailble=0;
-	for(int i=0; i<InfirmaryRooms.size(); i++) {
-		if(InfirmaryRooms.get(i).isAvailble()==true) {
-			noOfavailble+=1;
-		}
-	}
-	return noOfavailble;	
-}
+//public int avalibleMidkits() {
+//	int noOfavailble=0;
+//	for(int i=0; i<FirstAidkits.size(); i++) {
+//		if(FirstAidkits.get(i).isAvailble()==true) {
+//			noOfavailble+=1;
+//		}
+//	}
+//	return noOfavailble;	
+//}
+//public int avalibleRooms() {
+//	int noOfavailble=0;
+//	for(int i=0; i<InfirmaryRooms.size(); i++) {
+//		if(InfirmaryRooms.get(i).isAvailble()==true) {
+//			noOfavailble+=1;
+//		}
+//	}
+//	return noOfavailble;	
+//}
 
 public int getNoworkers() {
 	return noworkers;
@@ -182,17 +211,17 @@ public String toString() {
 			+ avgcheckuprate + "| avgage=" + avgage + "| noOfinjuried=" + TotalInjuries + "| timetohospital="
 			+ timetohospital + "| First Responders = " + String.format("%02d", ((int)Math.round(((double)noFirstResponders/(double)noworkers)*100)))+"%" + "| regularcheckup=" + regularcheckup +"]";
 }
-public int getNoMedKits() {
-	return noMedKits;
-}
-public void setNoMedKits(int noMedKits) {
-	this.noMedKits = noMedKits;
-}
-public int getNoInfirmaryRooms() {
-	return noInfirmaryRooms;
-}
-public void setNoInfirmaryRooms(int noInfirmaryRooms) {
-	this.noInfirmaryRooms = noInfirmaryRooms;
-}
+//public int getNoMedKits() {
+//	return noMedKits;
+//}
+//public void setNoMedKits(int noMedKits) {
+//	this.noMedKits = noMedKits;
+//}
+//public int getNoInfirmaryRooms() {
+//	return noInfirmaryRooms;
+//}
+//public void setNoInfirmaryRooms(int noInfirmaryRooms) {
+//	this.noInfirmaryRooms = noInfirmaryRooms;
+//}
 
 }

@@ -11,5 +11,12 @@ public enum medicalcondition {
 	medicalcondition(int cl){
 		complication=cl;
 	}
+	public int getComplication() {
+		return complication;
+	}
+	public void setComplication(int complication) {
+		this.complication = complication;
+	}
+	
 
 }

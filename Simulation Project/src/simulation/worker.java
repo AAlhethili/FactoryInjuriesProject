@@ -3,6 +3,8 @@ import java.security.SecureRandom;
 import simulation.medicalcondition;
 import java.util.ArrayList;
 import simulation.injuries;
+
+
 public class worker {
 
 SecureRandom generator = new SecureRandom();
@@ -10,6 +12,8 @@ public int id;
 private double age;
 private double regularcheckuprate;
 private boolean injuired;
+private boolean beingTreated;
+private boolean waitingForAmbulance;
 private int timetillpermenant;
 private int healingtime;
 private injuries current;
@@ -58,7 +62,6 @@ public worker(int id, double avg, double avgcheck) {
 	
 	regularcheckuprate=avgcheck;
 	setCurrent(injuries.None);
-	setHealingtime(current.healingtime);
 }	
 
 public void addinjury() {
@@ -67,6 +70,31 @@ public void addinjury() {
 		random=generator.nextInt(injurytypes.length-1);
 	}
 	current=injurytypes[random];
+	setInjuired(true);
+	int totalRecoverytime=current.getHealingtime()+conds.getComplication()+regularCheckupTime(regularcheckuprate);
+	setHealingtime(totalRecoverytime);
+	
+}
+public int regularCheckupTime(double freaquency) {
+	int TC=0;
+	switch((int)Math.round(freaquency)) {
+	case 0:
+		TC=40;
+		break;
+	case 1:
+		TC=30;	
+		break;
+	case 2:
+		TC=20;
+		break;
+	case 3:
+		TC=10;
+		break;
+	case 4:
+		TC=0;
+		break;
+	}
+	return TC;
 }
 public void removeinjury() {
 	current=injurytypes[9];
@@ -75,6 +103,7 @@ public void removeinjury() {
 public double getAge() {
 	return age;
 }
+
 
 public void setAge(int age) {
 	this.age = age;
@@ -134,6 +163,22 @@ public medicalcondition getConds() {
 
 public void setConds(medicalcondition conds) {
 	this.conds = conds;
+}
+
+public boolean isBeingTreated() {
+	return beingTreated;
+}
+
+public void setBeingTreated(boolean beingTreated) {
+	this.beingTreated = beingTreated;
+}
+
+public boolean isWaitingForAmbulance() {
+	return waitingForAmbulance;
+}
+
+public void setWaitingForAmbulance(boolean waitingForAmbulance) {
+	this.waitingForAmbulance = waitingForAmbulance;
 }
 
 
