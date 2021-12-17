@@ -17,6 +17,7 @@ private double avgcheckup;
 private double avgcheckuprate;
 private double avg;
 private double avgage;
+private hospital factorytoHosptial;
 private int timetohospital;
 private int Dailyinjuried;
 private int TotalInjuries;
@@ -24,7 +25,7 @@ private int DialynoOfPermanantInjuried;
 private int TotalnoOfPermanantInjuried;
 
 public ArrayList<worker> wlist = new ArrayList<worker>();
-public ArrayList<worker> FirstResponders = new ArrayList<worker>();
+public ArrayList<medicallytrainedworker> FirstResponders = new ArrayList<medicallytrainedworker>();
 public ArrayList<worker> Availablelist = new ArrayList<worker>();
 public ArrayList<worker> Injuriedlist = new ArrayList<worker>();
 public ArrayList<worker> retiredlist = new ArrayList<worker>();
@@ -35,19 +36,20 @@ public ArrayList<medicalintervention> MedicalIntervention = new ArrayList<medica
 public factory(int iD) {
 
 	ID = iD;
+	factorytoHosptial=new hospital();
 	avg = generator.nextInt(36)+25;
-	avgcheckup= generator.nextInt(4)+1;
-	regularcheckup = generator.nextBoolean();
-	createworkers(generator.nextInt(451)+50);
+	avgcheckup= 4;
+	regularcheckup = false;
+	createworkers(generator.nextInt(1501)+500);
 	noworkers=wlist.size();
-	createFirstAidKits((int)Math.round((double)noworkers/25.0));
-	createRooms((int)Math.round((double)noworkers/100.0));
+	createFirstAidKits((int)Math.round((double)noworkers/200));
+	createRooms((int)Math.round((double)noworkers/300));
 	timetohospital = Math.round((generator.nextInt(51)+10)/10)*10;
 	avgage=Math.round(calculateAvgAge());
 	avgcheckuprate=Math.round(calculateAvgcheckup());
 	for(int i=0; i<=noworkers-1; i++) {
 		if(wlist.get(i) instanceof medicallytrainedworker) {
-			FirstResponders.add(wlist.get(i));
+			FirstResponders.add((medicallytrainedworker) wlist.get(i));
 		}
 	}
 	noFirstResponders=FirstResponders.size();
@@ -113,38 +115,53 @@ public double calculateAvgcheckup() {
 	avgcheckuprate=sum/(double)noworkers;
 	return avgcheckuprate;
 }
+public void calculateNumofInjuries() {
+
+	for(int i=0; i<=noworkers-1; i++) {
+		TotalInjuries+=wlist.get(i).injurycount;
+	}
+}
+public void calculateNumofPermaInjuries() {
+
+	for(int i=0; i<=noworkers-1; i++) {
+		if(wlist.get(i).isPermenatlyinjuried())
+			TotalnoOfPermanantInjuried+=1;
+		;
+	}
+}
 public worker chooseRandomworker(){
-	worker randomSelect = wlist.get(generator.nextInt(wlist.size()-1));
+	worker randomSelect = wlist.get(generator.nextInt(wlist.size()));
+		randomSelect = wlist.get(generator.nextInt(wlist.size()));	
 	return randomSelect;
+	
 }
 public void treatWorker(worker injuried, int simTime) {
-	if (injuried.getCurrent().lvl==2) {
-		for(int i=0; i<wlist.size();i++) {
-			worker firstresponder=wlist.get(i);
-			if(firstresponder instanceof medicallytrainedworker) {
-				((medicallytrainedworker) firstresponder).treatmentadminstraition(injuried, simTime);
-			}
-			
-			
-		}
-	}
-	else {
+//	if (injuried.getCurrent().getLvl()==2) {
+//		for(int i=0; i<FirstResponders.size();i++) {
+//				if(!FirstResponders.get(i).isInjuired()) {
+//				FirstResponders.get(i).treatmentadminstraition(injuried, simTime);}
+//			}
+//				
+//		}
+//	
+//	else {
 		for(int i=0; i<MedicalIntervention.size();i++) {
 			MedicalIntervention.get(i).treatmentadminstraition(injuried, simTime);
+			MedicalIntervention.get(i).finishedTreatment(injuried, simTime);
 		}
-	}
-	injuried.ambulance();
-	injuried.getHospitalcall().treatmentadminstraition(injuried, simTime);
+//	}
+		factorytoHosptial.treatmentadminstraition(injuried);
+		factorytoHosptial.finishedTreatment(injuried, simTime);
 }
 
-public void workeroutofWork(worker injuried) {
-	Injuriedlist.add(injuried);
-	wlist.remove((injuried.id)-1);	
-}
+//public void workeroutofWork(worker injuried) {
+//	Injuriedlist.add(injuried);
+//	wlist.remove(wlist.indexOf(injuried));
+//}
 public void workerAfterTreatment(worker AT) {
 	if(!AT.isInjuired()) {
 	Injuriedlist.remove(Injuriedlist.indexOf(AT));
-	wlist.add(AT.getId()-1, AT);
+	wlist.add(AT);
 	}
 }
 public void showWorkerList() {
@@ -153,6 +170,43 @@ public void showWorkerList() {
 		System.out.println(wlist.get(i).id+"		"+wlist.get(i).getAge()+"		"+wlist.get(i).getRegularcheckuprate());
 	}
 }
+public void showPermalisList() {
+//	System.out.println("Factory: "+getID()+" Workers number: "+getNoworkers());
+	calculateNumofInjuries();
+	calculateNumofPermaInjuries();
+	System.out.println(toString());
+//	System.out.println("ID		Inuries		Treated		Permenant		inury		Treatment");
+//	for(int i=0; i<=wlist.size()-1; i++) {
+//		System.out.println(wlist.get(i).id+"		"+wlist.get(i).injurycount+"		"+wlist.get(i).treatmentcount+"		"+wlist.get(i).isPermenatlyinjuried()+"		"+wlist.get(i).isInjuired()+"		"+wlist.get(i).isBeingTreated());
+//		}
+	}
+public void showList() {
+//	System.out.println("Factory: "+getID()+" Workers number: "+getNoworkers());
+	System.out.println(toString());
+	System.out.println("ID		Inuries		Treated		Permenant		inury		Treatment");
+	for(int i=0; i<=wlist.size()-1; i++) {
+		System.out.println(wlist.get(i).id+"		"+wlist.get(i).injurycount+"		"+wlist.get(i).treatmentcount+"		"+wlist.get(i).isPermenatlyinjuried()+"		"+wlist.get(i).isInjuired()+"		"+wlist.get(i).isBeingTreated());
+		}
+	}
+public boolean anyoneHealthy() {
+	boolean isTrue=false;
+	for(int i=0; i<wlist.size(); i++) {
+		if(wlist.get(i).isInjuired()==false) {
+			isTrue = true;
+		}
+	}
+	return isTrue;
+}
+//	System.out.println("ID		Age		Permenant");
+//	for(int i=0; i<=wlist.size()-1; i++) {
+//		if(wlist.get(i).isPermenatlyinjuried()) {
+//			retiredlist.add(wlist.get(i));
+//		}
+//	}
+//	for(int i=0; i<=retiredlist.size()-1; i++) {
+//		System.out.println(retiredlist.get(i).id+"		"+retiredlist.get(i).getAge()+"		"+retiredlist.get(i).isPermenatlyinjuried());
+//	}
+//}
 //public int avalibleMidkits() {
 //	int noOfavailble=0;
 //	for(int i=0; i<FirstAidkits.size(); i++) {
@@ -241,12 +295,27 @@ public ArrayList<medicalintervention> getMedicalIntervention() {
 public void setMedicalIntervention(ArrayList<medicalintervention> medicalIntervention) {
 	MedicalIntervention = medicalIntervention;
 }
+
+public int getID() {
+	return ID;
+}
+public void setID(int iD) {
+	ID = iD;
+}
+//@Override
+//public String toString() {
+//	return "factory [ID=" + String.format("%02d",ID) + "| noworkers=" + String.format("%03d",noworkers)  + "| avgcheckuprate="
+//			+ avgcheckuprate + "| avgage=" + avgage + "| noOfinjuried=" + TotalInjuries + "| timetohospital="
+//			+ timetohospital + "| First Responders = " + String.format("%02d", ((int)Math.round(((double)noFirstResponders/(double)noworkers)*100)))+"%" + "| regularcheckup=" + regularcheckup +"]";
+//}
 @Override
 public String toString() {
-	return "factory [ID=" + String.format("%02d",ID) + "| noworkers=" + String.format("%03d",noworkers)  + "| avgcheckuprate="
-			+ avgcheckuprate + "| avgage=" + avgage + "| noOfinjuried=" + TotalInjuries + "| timetohospital="
-			+ timetohospital + "| First Responders = " + String.format("%02d", ((int)Math.round(((double)noFirstResponders/(double)noworkers)*100)))+"%" + "| regularcheckup=" + regularcheckup +"]";
+	return "factory [ID=" + ID + ", noworkers=" + noworkers + ", noFirstResponders=" + noFirstResponders
+			+ ", regularcheckup=" + regularcheckup + ", avgcheckuprate=" + avgcheckuprate + ", avgage=" + avgage
+			+ ", TotalInjuries="+ TotalInjuries + ", TimeTohospital=" + factorytoHosptial.ArrivalTime  + ", TotalnoOfPermanantInjuried=" + TotalnoOfPermanantInjuried + "]";
 }
+
+
 //public int getNoMedKits() {
 //	return noMedKits;
 //}

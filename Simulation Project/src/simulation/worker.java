@@ -9,6 +9,8 @@ public class worker {
 
 SecureRandom generator = new SecureRandom();
 public int id;
+public int treatmentcount;
+public int injurycount;
 private double age;
 private double regularcheckuprate;
 private boolean injuired;
@@ -27,6 +29,8 @@ injuries[] injurytypes = injuries.values();
 public worker(int id, double avg, double avgcheck) {
 	
 	this.id=id;
+	treatmentcount=0;
+	injurycount=0;
 	injuired=false;
 	permenatlyinjuried=false;
 	age=generator.nextGaussian()*10+avg;
@@ -48,18 +52,18 @@ public worker(int id, double avg, double avgcheck) {
 			conds=(medicalcondition.deficincy);
 			break;
 		}
-		if(age<50&&(generator.nextInt(10))==0) {
-			switch (random){
-			case 1:
-				conds=medicalcondition.baddiet;
-				break;
-			case 2:
-				conds=medicalcondition.obesity;
-				break;
-			case 3:
-				conds=medicalcondition.deficincy;
-				break;
-			}
+	}
+	if(age<50&&(generator.nextInt(40))==0) {
+		switch (random){
+		case 1:
+			conds=medicalcondition.baddiet;
+			break;
+		case 2:
+			conds=medicalcondition.obesity;
+			break;
+		case 3:
+			conds=medicalcondition.deficincy;
+			break;
 		}
 	}
 	
@@ -68,14 +72,15 @@ public worker(int id, double avg, double avgcheck) {
 }	
 
 public void addinjury() {
-	int random=generator.nextInt(injurytypes.length-1);
+	int random=generator.nextInt(injurytypes.length);
 	while(random==9) {
-		random=generator.nextInt(injurytypes.length-1);
+		random=generator.nextInt(injurytypes.length);
 	}
 	current=injurytypes[random];
 	setInjuired(true);
 	int totalRecoverytime=current.getHealingtime()+conds.getComplication()+regularCheckupTime(regularcheckuprate);
 	setHealingtime(totalRecoverytime);
+	injurycount+=1;
 	
 }
 public int regularCheckupTime(double freaquency) {
