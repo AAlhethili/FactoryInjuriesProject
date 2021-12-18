@@ -2,59 +2,41 @@ package simulation;
 
 public class medicallytrainedworker extends worker implements medicaltreatmant {
 
-	private int timetoFinishTreatment;
-	private int Rangeofcaplbility;
-	private boolean readiness;
+	int Rangeofcaplbility;
+	boolean someoneNearby=false;
 	
 	public medicallytrainedworker(int id, double avg, double avgcheck) {
 		super(id,avg, avgcheck);
 		setRangeofcaplbility(2);
-		setReadiness(true);
 	}
 
 	@Override
-	public void treatmentadminstraition(worker a, int simTime) {
-		if(a.isInjuired()&&!a.isBeingTreated()&&isReadiness()&&a.getCurrent().getLvl()<=Rangeofcaplbility&&!a.isPermenatlyinjuried()) {
-			timetoFinishTreatment=a.getHealingtime()+simTime;
-			a.setWaitingForAmbulance(false);
-			a.setBeingTreated(true);
-			a.setTimetillpermenant(0);
-			readiness=false;
+	public void treatmentadminstraition(worker a, int simTime,factory workerfactory) {
+		if(!a.isCheckedMedicalWorker()) {
+			if(workerfactory.getWlist().size()-1-workerfactory.getWlist().indexOf(a)<=(workerfactory.getDensity())) {
+				for(int i=workerfactory.getWlist().indexOf(a); i<= workerfactory.getWlist().indexOf(a)-workerfactory.getDensity();i++) {
+	
+					if(workerfactory.wlist.get(i).isKnowsHowtoUseMedikit()) {
+						someoneNearby=true;
+						break;
+					}
+				}
+			}
+			if(someoneNearby) {
+				a.setProgressionRate(a.getProgressionRate()-5);
+				someoneNearby=false;
+			}
 		}
-	}
-	@Override
-	public void finishedTreatment(worker a, int simTime) {
-		if(simTime==timetoFinishTreatment&&a.isBeingTreated()&&a.isInjuired()&&!a.isPermenatlyinjuried()) {
-			a.setBeingTreated(false);
-			a.setCurrent(injuries.None);
-			a.setHealingtime(0);
-			a.treatmentcount+=1;
-			a.setTimetillpermenant(0);
-			a.setInjuired(false);
-			a.setWaitingForAmbulance(false);
-			readiness=true;
-			timetoFinishTreatment=0;
-		}
+		
 	}
 
-
+	
 	public int getRangeofcaplbility() {
 		return Rangeofcaplbility;
 	}
-
-
 	public void setRangeofcaplbility(int rangeofcaplbility) {
 		Rangeofcaplbility = rangeofcaplbility;
 	}
 
-
-	public boolean isReadiness() {
-		return readiness;
 	}
 
-
-	public void setReadiness(boolean readiness) {
-		this.readiness = readiness;
-	}
-
-}
