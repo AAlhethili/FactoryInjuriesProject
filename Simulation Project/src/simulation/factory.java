@@ -163,6 +163,7 @@ public void treatWorker(worker injuried, int simTime) {
 			
 		
 		factorytoHosptial.treatmentadminstraition(injuried, simTime, this);		
+//		printInjuried(simTime);
 				
 
 	
@@ -174,6 +175,47 @@ public void showWorkerList() {
 	for(int i=0; i<=noworkers-1; i++) {
 		System.out.println(wlist.get(i).id+"		"+wlist.get(i).getAge()+"		"+wlist.get(i).getRegularcheckuprate());
 	}
+}
+public void printInjuried(int simAlltime) {
+	for(int in=0; in<getInjuriedlist().size();in++) {
+		if(simAlltime%480!=0) {
+//		if(selectedFactory.getInjuriedlist().get(in).hat==0) {
+//			
+//
+//		}
+		if(!getInjuriedlist().get(in).isTreated()) {
+		System.out.println("Factory: "+ getID()+" " + getInjuriedlist().get(in).getId()+" " + getInjuriedlist().get(in).isInjuired()+" " + getInjuriedlist().get(in).isPermenatlyinjuried()+" "+ getInjuriedlist().get(in).getProgressionRate()+" "+ getInjuriedlist().get(in).getProgressionofInjury()+" "+ getInjuriedlist().get(in).hat+" ");
+		}
+		}
+		
+	}
+}
+
+public void injuryandtreatment(worker injuried, int simAlltime, int simMaxtime, String timeofinjury) {
+	if(simAlltime!=simMaxtime) {
+	if(generator.nextInt((10-getDensity())*3)==0) {
+		if(generator.nextInt((10-getDensity())*3)==0) {
+			if(getInjuriedlist().isEmpty()) {
+				for(int k = 0; k<generator.nextInt((getDensity())); k++) {
+				injuried=chooseRandomworker();
+					injuried.addinjury(this, timeofinjury);
+					Injuriedlist.add(injuried);
+					}
+			}
+			
+		}
+		else {
+		if(getInjuriedlist().isEmpty()) {
+				injuried=chooseRandomworker();
+					injuried.addinjury(this, timeofinjury);
+					Injuriedlist.add(injuried);
+			}
+		}
+	}
+}
+		if(!Injuriedlist.isEmpty()) {
+			LoopTreating(simAlltime);
+		}
 }
 
 

@@ -9,6 +9,7 @@ public class worker {
 SecureRandom generator = new SecureRandom();
 public int id;
 public int hat=0;
+private String timeofinjury;
 private int treatmentcount;
 private int injurycount;
 private int HospitalarraivalTime;
@@ -21,6 +22,7 @@ private boolean CheckedMedicalWorker;
 private boolean CheckedInfermary;
 public boolean usedIR;
 private boolean knowsHowtoUseMedikit;
+private boolean Treated;
 private boolean permenatlyinjuried;
 private boolean fullyprogressed;
 private int progressionRate;
@@ -31,7 +33,9 @@ private injuries current;
 private ArrayList<medicalcondition> conds = new ArrayList<medicalcondition>();
 injuries[] injurytypes = injuries.values();
 
-
+public worker() {
+	
+}
 
 public worker(int id, double avg, double avgcheck) {
 	
@@ -97,7 +101,9 @@ public worker(int id, double avg, double avgcheck) {
 	setCurrent(injuries.None);
 }	
 
-public void addinjury(factory myfactory) {
+public void addinjury(factory myfactory, String timeofinjury) {
+	this.timeofinjury=timeofinjury;
+	setTreated(false);
 	int random=generator.nextInt(injurytypes.length);
 	while(random==11) {
 		random=generator.nextInt(injurytypes.length);
@@ -156,6 +162,7 @@ public void FinishedTreatment(){
 	setProgressionRate(0);
 	current=injuries.None;
 	}
+	setTreated(true);
 	setInjuired(false);
 }
 
@@ -324,6 +331,22 @@ public int getHospitalarraivalTime() {
 
 public void setHospitalarraivalTime(int hospitalarraivalTime) {
 	HospitalarraivalTime = hospitalarraivalTime;
+}
+
+public String getTimeofinjury() {
+	return timeofinjury;
+}
+
+public void setTimeofinjury(String timeofinjury) {
+	this.timeofinjury = timeofinjury;
+}
+
+public boolean isTreated() {
+	return Treated;
+}
+
+public void setTreated(boolean treated) {
+	Treated = treated;
 }
 
 

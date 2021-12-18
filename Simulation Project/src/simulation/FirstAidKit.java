@@ -21,7 +21,8 @@ public class FirstAidKit extends medicalintervention {
 				int worker=0;
 				for(int i=1; i<= a.getPeopleAround();i++) {
 					worker=genertor.nextInt(workerfactory.getWlist().size());
-					while(worker==checkagain) {
+					while
+						(worker==checkagain) {
 						worker = genertor.nextInt(workerfactory.getWlist().size());
 					}
 					checkagain=worker;

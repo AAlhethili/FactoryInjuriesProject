@@ -10,13 +10,14 @@ public static void main(String[] args) {
 	int simDays=30;
 	int sim1Miutes=(1*8*60);
 	int simAlltime=1;
+	int simMaxtime=simDays*sim1Miutes;
 	int noFactories=10;
-	worker injuried;
+	worker injuried = new worker();
 	factory selectedFactory;
 	ArrayList<factory> factorylist = createfactory(noFactories);
 	for(int day=1; day<=simDays; day++) {
 		for(int minute=1; minute<=sim1Miutes; minute++) {
-//			if(simAlltime==1||simAlltime%480<=30&&simAlltime%480!=0) {
+//			if(simAlltime%480==0) {
 			System.out.println("-------------------------------------------------------------------------------");
 			System.out.print("Day:"+ day);
 			System.out.println("		Time:"+ Time(minute));
@@ -25,29 +26,8 @@ public static void main(String[] args) {
 //			}
 		for(int factory = 0; factory<factorylist.size(); factory++) {
 				selectedFactory = factorylist.get(factory);
-				for(int in=0; in<selectedFactory.getInjuriedlist().size();in++) {
-//					if(simAlltime==1||simAlltime%480<=30&&simAlltime%480!=0) {
-//					if(selectedFactory.getInjuriedlist().get(in).hat==0) {
-//						
-//
-//					}
-					if(selectedFactory.getInjuriedlist().get(in).hat!=0) {
-					System.out.println("Factory: "+ selectedFactory.getID()+" " + selectedFactory.getInjuriedlist().get(in).getId()+" " + selectedFactory.getInjuriedlist().get(in).isInjuired()+" " + selectedFactory.getInjuriedlist().get(in).isPermenatlyinjuried()+" "+ selectedFactory.getInjuriedlist().get(in).getProgressionRate()+" "+ selectedFactory.getInjuriedlist().get(in).getProgressionofInjury()+" "+ selectedFactory.getInjuriedlist().get(in).getHospitalarraivalTime()+" "+ simAlltime+" "+ selectedFactory.getInjuriedlist().get(in).hat+" "+selectedFactory.getTimetohospital());
-//					}
-					}
-					
-				}
-					
-				if(generator.nextInt((10-selectedFactory.getDensity())*3)==0) {
-				if(selectedFactory.getInjuriedlist().isEmpty()) {
-						injuried=selectedFactory.chooseRandomworker();
-							injuried.addinjury(selectedFactory);
-							selectedFactory.Injuriedlist.add(injuried);
-					}
-				}
-				if(!selectedFactory.Injuriedlist.isEmpty()) {
-					selectedFactory.LoopTreating(simAlltime);
-				}
+				selectedFactory.injuryandtreatment(injuried, simAlltime, simMaxtime, Time(minute));
+				selectedFactory.printInjuried(simAlltime);
 			}
 		simAlltime++;
 		 }
