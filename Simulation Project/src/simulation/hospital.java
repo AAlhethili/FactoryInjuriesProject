@@ -23,22 +23,27 @@ public class hospital extends medicalintervention{
 	if(ArrivalTime==0) {
 		if(generator.nextBoolean()) {
 			ArrivalTime=workerFactory.getTimetohospital()-generator.nextInt(4);
+			injuried.hat=ArrivalTime;
+			ArrivalTime=ArrivalTime+simTime;
 			injuried.setHospitalarraivalTime(ArrivalTime);
-			ArrivalTime=workerFactory.getTimetohospital()+simTime;
 		}
 		else {
 			ArrivalTime=workerFactory.getTimetohospital()+generator.nextInt(7);
+			injuried.hat=ArrivalTime;
+			ArrivalTime=ArrivalTime+simTime;
 			injuried.setHospitalarraivalTime(ArrivalTime);
-			ArrivalTime=workerFactory.getTimetohospital()+simTime;
 		}
 	}
 	if(injuried.getProgressionRate()<0) {
 		injuried.setProgressionRate(1);
 	}
-	if(ArrivalTime-simTime==0) {
+	if(ArrivalTime==simTime||simTime%480==0) {
 		if(injuried.getProgressionofInjury()>=100){
 			workerFactory.setMaxProgressedInjury(100);
 			injuried.setPermenatlyinjuried(true);
+			if(simTime==1||simTime%480<=30&&simTime%480!=0) {
+			System.out.println("Factory: "+ workerFactory.getID()+" " + workerFactory.getInjuriedlist().size()+" " + injuried.getId()+" " + injuried.isInjuired()+" " + injuried.isPermenatlyinjuried()+" "+ injuried.getProgressionRate()+" "+ injuried.getProgressionofInjury()+" "+ injuried.getHospitalarraivalTime()+" "+ simTime+" "+ (injuried.hat+1)+" "+workerFactory.getTimetohospital());
+			}		
 			injuried.FinishedTreatment();
 			ArrivalTime=0;
 		}
@@ -50,11 +55,13 @@ public class hospital extends medicalintervention{
 			injuried.FinishedTreatment();
 			ArrivalTime=0;
 			}
-		
 		}
 	injuried.progressInjury();
-	if(simTime==1||simTime%480==0||simTime%480<=10) {
-	injuried.showStatus(workerFactory);}
+	injuried.hat-=1;
+	if(injuried.hat<0) {
+		injuried.hat=0;
+	}
+//	injuried.showStatus(workerFactory);
 	}
 		
 	}

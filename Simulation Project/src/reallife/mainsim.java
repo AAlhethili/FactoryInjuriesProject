@@ -9,20 +9,27 @@ public static void main(String[] args) {
 	SecureRandom generator=new SecureRandom();
 	int simDays=30;
 	int sim1Miutes=(1*8*60);
-	int simAlltime=0;
-	int noFactories=5;
+	int simAlltime=1;
+	int noFactories=10;
 	worker injuried;
+	factory selectedFactory;
 	ArrayList<factory> factorylist = createfactory(noFactories);
 	for(int day=1; day<=simDays; day++) {
 		for(int minute=1; minute<=sim1Miutes; minute++) {
-			simAlltime++;
-			if(simAlltime==1||simAlltime%480==0||simAlltime%480<=10) {
+			if(simAlltime==1||simAlltime%480<=30&&simAlltime%480!=0) {
 			System.out.println("-------------------------------------------------------------------------------");
 			System.out.print("Day:"+ day);
 			System.out.println("		Minute:"+ minute);
-			System.out.println("-------------------------------------------------------------------------------");}
+			System.out.println("-------------------------------------------------------------------------------");
+			System.out.println(padRight("FID", 3)+" | "+padRight("ID", 3)+" | "+" | "+"perma"+" | "+" | "+"PR"+" | "+" | "+"Prg"+" | "+"Smart"+" | "+"f"+" | "+"HAT"+" | "+"useAK"+" | "+" | "+"Midkit"+" | "+" | "+"inury"+" | ");}
 		for(int factory = 0; factory<factorylist.size(); factory++) {
-				factory selectedFactory = factorylist.get(factory);
+				selectedFactory = factorylist.get(factory);
+				for(int in=0; in<selectedFactory.getInjuriedlist().size();in++) {
+					if(simAlltime==1||simAlltime%480<=30&&simAlltime%480!=0) {
+					System.out.println("Factory: "+ selectedFactory.getID()+" " + selectedFactory.getInjuriedlist().size()+" " + selectedFactory.getInjuriedlist().get(in).getId()+" " + selectedFactory.getInjuriedlist().get(in).isInjuired()+" " + selectedFactory.getInjuriedlist().get(in).isPermenatlyinjuried()+" "+ selectedFactory.getInjuriedlist().get(in).getProgressionRate()+" "+ selectedFactory.getInjuriedlist().get(in).getProgressionofInjury()+" "+ selectedFactory.getInjuriedlist().get(in).getHospitalarraivalTime()+" "+ simAlltime+" "+ selectedFactory.getInjuriedlist().get(in).hat+" "+selectedFactory.getTimetohospital());
+					}
+				}
+					
 				if(generator.nextInt((10-selectedFactory.getDensity())*3)==0) {
 				if(selectedFactory.getInjuriedlist().isEmpty()) {
 						injuried=selectedFactory.chooseRandomworker();
@@ -34,6 +41,7 @@ public static void main(String[] args) {
 					selectedFactory.LoopTreating(simAlltime);
 				}
 			}
+		simAlltime++;
 		 }
 	}
 		
@@ -56,5 +64,12 @@ public static ArrayList<Boolean> generateInjuries(ArrayList<factory> FactoriesLi
 	injuryHappening.add(generator.nextBoolean());
 }
 	return injuryHappening;
+}
+public static String padRight(String s, int n) {
+    return String.format("%-" + n + "s", s);  
+}
+
+public static String padLeft(String s, int n) {
+   return String.format("%" + n + "s", s);  
 }
 }

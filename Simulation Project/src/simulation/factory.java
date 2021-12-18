@@ -127,19 +127,21 @@ public void calculateNumofPermaInjuries() {
 public worker chooseRandomworker(){
 	worker randomSelect = wlist.get(generator.nextInt(wlist.size()));
 		randomSelect = wlist.get(generator.nextInt(wlist.size()));	
-		if(randomSelect.isPermenatlyinjuried()) {
+		if(randomSelect.isPermenatlyinjuried()||randomSelect.isInjuired()) {
 			randomSelect = wlist.get(generator.nextInt(wlist.size()));	
 		}
 	return randomSelect;
 	
 }
 public void LoopTreating(int simTime) {
+	for(int i = 0; i<getInjuriedlist().size(); i++) {
+	if(!getInjuriedlist().get(i).isInjuired()||getInjuriedlist().get(i).isPermenatlyinjuried()){
+		getInjuriedlist().remove(getInjuriedlist().get(i));}
+	if(!Injuriedlist.isEmpty()) {
 	for(int j = 0; j<getInjuriedlist().size(); j++) {
-		getInjuriedlist().get(j).progressInjury();
 		treatWorker(getInjuriedlist().get(j), simTime);
-		if(getInjuriedlist().get(j).isInjuired()==false||getInjuriedlist().get(j).isPermenatlyinjuried()==true){
-			getInjuriedlist().remove(getInjuriedlist().get(j));
 		}
+	}
 	}
 }
 public void treatWorker(worker injuried, int simTime) {
@@ -167,12 +169,6 @@ public void treatWorker(worker injuried, int simTime) {
 
 }
 
-public void workerAfterTreatment(worker AT) {
-	if(!AT.isInjuired()) {
-	Injuriedlist.remove(Injuriedlist.indexOf(AT));
-	wlist.add(AT);
-	}
-}
 public void showWorkerList() {
 	System.out.println("ID		Age		Checkup");
 	for(int i=0; i<=noworkers-1; i++) {
@@ -180,15 +176,6 @@ public void showWorkerList() {
 	}
 }
 
-public boolean anyoneHealthy() {
-	boolean isTrue=false;
-	for(int i=0; i<wlist.size(); i++) {
-		if(wlist.get(i).isInjuired()==false) {
-			isTrue = true;
-		}
-	}
-	return isTrue;
-}
 
 public int getNoworkers() {
 	return noworkers;

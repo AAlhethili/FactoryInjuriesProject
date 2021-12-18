@@ -8,6 +8,7 @@ public class worker {
 
 SecureRandom generator = new SecureRandom();
 public int id;
+public int hat=0;
 private int treatmentcount;
 private int injurycount;
 private int HospitalarraivalTime;
@@ -46,13 +47,13 @@ public worker(int id, double avg, double avgcheck) {
 	CheckedInfermary=false;
 	CheckedMedicalWorker=false;
 	fullyprogressed=false;
-//	if(generator.nextInt(2)==0) {
-//		knowsHowtoUseMedikit=true;
-//	}
-//	else {
-//		knowsHowtoUseMedikit=false;
-//	}
-	knowsHowtoUseMedikit=true;
+	if(generator.nextInt(1000)==0) {
+		knowsHowtoUseMedikit=true;
+	}
+	else {
+		knowsHowtoUseMedikit=false;
+	}
+//	knowsHowtoUseMedikit=true;
 	age=generator.nextGaussian()*10+avg;
 	while(age<20||age>70) {
 		age=generator.nextGaussian()*10+avg;
@@ -97,7 +98,6 @@ public worker(int id, double avg, double avgcheck) {
 }	
 
 public void addinjury(factory myfactory) {
-	if(!isInjuired()&&!isPermenatlyinjuried()) {
 	int random=generator.nextInt(injurytypes.length);
 	while(random==11) {
 		random=generator.nextInt(injurytypes.length);
@@ -122,9 +122,9 @@ public void addinjury(factory myfactory) {
 		peopleAround=myfactory.getDensity()-generator.nextInt(4);
 		if(peopleAround<0) {peopleAround=0;}
 	}
-	MidkitwhenInjuried=true;
+	MidkitwhenInjuried=generator.nextBoolean();
 	injurycount+=1;
-	}
+
 }
 public int regularCheckupTime(double freaquency) {
 	int TC=0;
@@ -154,26 +154,24 @@ public void FinishedTreatment(){
 	setCheckedMedicalWorker(false);
 	setProgressionofInjury(0);
 	setProgressionRate(0);
-	setInjuired(false);
-	current=injuries.None;	
+	current=injuries.None;
 	}
+	setInjuired(false);
 }
 
 public void progressInjury() {
-	if(isInjuired()) {
 	if(progressionofInjury<100) {
-		progressionofInjury+=progressionRate;
+		progressionofInjury=progressionofInjury+progressionRate;
+		if(progressionofInjury>100) {
+			progressionofInjury=100;
 		}
-	else {
-		progressionofInjury=100;
-	}
-	}
+		}
 }
 public void removeinjury() {
 	current=injurytypes[9];
 }
 public void showStatus(factory myFactory) {
-	System.out.println(String.format("%03d",myFactory.getID())+" | "+String.format("%03d",id)+" | "+" | "+permenatlyinjuried+" | "+" | "+String.format("%02d",progressionRate)+" | "+" | "+String.format("%03d",progressionofInjury)+" | "+myFactory.isHasSmartFirstAidkit()+" | "+regularCheckupTime(regularcheckuprate)+" | "+HospitalarraivalTime+" | "+usedAK+" | "+" | "+" "+" | "+" | "+current+" | ");
+	System.out.println(String.format("%03d",myFactory.getID())+" | "+String.format("%03d",id)+" | "+" | "+permenatlyinjuried+" | "+" | "+String.format("%02d",progressionRate)+" | "+" | "+String.format("%03d",progressionofInjury)+" | "+myFactory.isHasSmartFirstAidkit()+" | "+regularCheckupTime(regularcheckuprate)+" | "+HospitalarraivalTime+" | "+usedAK+" | "+" | "+MidkitwhenInjuried+" | "+" | "+current+" | ");
 }
 
 public int getId() {

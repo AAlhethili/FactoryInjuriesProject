@@ -1,6 +1,8 @@
 package simulation;
-
+import java.security.SecureRandom;
 public class FirstAidKit extends medicalintervention {
+	SecureRandom genertor = new SecureRandom();
+	int checkagain=9999999;
 	boolean someoneNearby=false;
 	public FirstAidKit() {
 	 Rangeofcaplbility=1;
@@ -15,22 +17,21 @@ public class FirstAidKit extends medicalintervention {
 				a.usedAK=true;
 			}
 			else {
-			if(workerfactory.getWlist().size()-1-workerfactory.getWlist().indexOf(a)<=(workerfactory.getDensity())) {
-				for(int i=workerfactory.getWlist().indexOf(a); i<= workerfactory.getWlist().indexOf(a)-workerfactory.getDensity();i++) {
-					if(workerfactory.wlist.get(i).isKnowsHowtoUseMedikit()) {
+				checkagain=9999999;
+				int worker=0;
+				for(int i=1; i<= a.getPeopleAround();i++) {
+					worker=genertor.nextInt(workerfactory.getWlist().size());
+					while(worker==checkagain) {
+						worker = genertor.nextInt(workerfactory.getWlist().size());
+					}
+					checkagain=worker;
+					if(workerfactory.wlist.get(worker).isKnowsHowtoUseMedikit()) {
 						someoneNearby=true;
 						break;
-					}
+						}
 				}
 			}
-//			else {
-//				for(int i=workerfactory.getWlist().indexOf(a); i<= workerfactory.getWlist().indexOf(a)+workerfactory.getDensity();i--) {
-//					if(workerfactory.wlist.get(i).isKnowsHowtoUseMedikit()) {
-//						someoneNearby=true;
-//						break;
-//			}
-//				}
-//			}
+					
 			if(someoneNearby) {
 				a.setProgressionRate(a.getProgressionRate()-5);
 				a.setCheckedFirsAid(true);
@@ -40,7 +41,6 @@ public class FirstAidKit extends medicalintervention {
 			}
 		}
 		
-	}
 	public int getRangeofcaplbility() {
 		return Rangeofcaplbility;
 	}
