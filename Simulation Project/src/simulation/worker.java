@@ -90,7 +90,7 @@ public worker(int id, double avg, int avgcheck) {
 			break;
 		}
 	}
-	if((generator.nextInt(100))==0) {
+	if((generator.nextInt(10))==0) {
 		if(age<50) {
 			conds.clear();
 		}
