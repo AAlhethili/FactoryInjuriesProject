@@ -10,15 +10,17 @@ public class worker {
 
 SecureRandom generator = new SecureRandom();
 public int id;
-private int hat=0;
+private int hat;
 private String timeofinjury;
 private int treatmentcount;
 private int injurycount;
+private int waitTime;
 private int HospitalarraivalTime;
 private int ArrivalTimenoCountdown;
 private double age;
 private double regularcheckuprate;
 private boolean injuired;
+private boolean calledHospital;
 private boolean CheckedFirsAid;
 private boolean usedAK;
 private boolean usedSAK;
@@ -55,6 +57,7 @@ public worker(int id, double avg, double avgcheck) {
 	CheckedFirsAid=false;
 	CheckedInfermary=false;
 	CheckedMedicalWorker=false;
+	calledHospital=false;
 	fullyprogressed=false;
 	if(generator.nextInt(50)==0) {
 		knowsHowtoUseMedikit=true;
@@ -109,6 +112,13 @@ public worker(int id, double avg, double avgcheck) {
 public void addinjury(factory myfactory, String timeofinjury) {
 	this.timeofinjury=timeofinjury;
 	setTreated(false);
+	setCalledHospital(false);
+	setCheckedFirsAid(false);
+	setCheckedInfermary(false);
+	setCheckedMedicalWorker(false);
+	setProgressionofInjury(0);
+	setProgressionRate(0);
+	current=injuries.None;
 	int random=generator.nextInt(injurytypes.length);
 	while(random==11) {
 		random=generator.nextInt(injurytypes.length);
@@ -159,14 +169,7 @@ public int regularCheckupTime(double freaquency) {
 	return TC;
 }
 public void FinishedTreatment(){
-	if(!isPermenatlyinjuried()) {
-	setCheckedFirsAid(false);
-	setCheckedInfermary(false);
-	setCheckedMedicalWorker(false);
-	setProgressionofInjury(0);
-	setProgressionRate(0);
-	current=injuries.None;
-	}
+
 	setTreated(true);
 	setInjuired(false);
 }
@@ -407,6 +410,22 @@ public int getArrivalTimenoCountdown() {
 
 public void setArrivalTimenoCountdown(int arrivalTimenoCountdown) {
 	ArrivalTimenoCountdown = arrivalTimenoCountdown;
+}
+
+public int getWaitTime() {
+	return waitTime;
+}
+
+public void setWaitTime(int waitTime) {
+	this.waitTime = waitTime;
+}
+
+public boolean isCalledHospital() {
+	return calledHospital;
+}
+
+public void setCalledHospital(boolean calledHospital) {
+	this.calledHospital = calledHospital;
 }
 
 

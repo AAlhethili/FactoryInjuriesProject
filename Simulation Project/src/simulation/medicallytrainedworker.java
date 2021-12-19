@@ -41,10 +41,13 @@ public class medicallytrainedworker extends worker implements medicaltreatmant {
 			if(someoneNearby) {
 				a.setProgressionRate(a.getProgressionRate()-5);
 				a.setCheckedMedicalWorker(someoneNearby);
+				a.setHadMWnearby(true);
 				someoneNearby=false;
 				}
 			}
+			a.setWaitTime((generator.nextInt(3)+1)+simTime);
 		}
+		a.setCheckedMedicalWorker(true);
 		
 	}
 

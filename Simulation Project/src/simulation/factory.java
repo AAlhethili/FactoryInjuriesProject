@@ -162,7 +162,7 @@ public void treatWorker(worker injuried, int simTime) {
 				}
 			}
 			
-			MedicalWorker.treatmentadminstraition(injuried, simTime, this);
+		MedicalWorker.treatmentadminstraition(injuried, simTime, this);
 		
 		factorytoHosptial.treatmentadminstraition(injuried, simTime, this);		
 //		printInjuried(simTime);
@@ -186,7 +186,7 @@ public void printInjuried(int simAlltime) {
 //
 //		}
 		if(!getInjuriedlist().get(in).isTreated()) {
-			System.out.printf("%-10d|%-4d|%-2d|%-16s|%18s|%-14s|%-16d|%-19d|%-2d %-24s|\n", ID, getInjuriedlist().get(in).getId(),(int)getInjuriedlist().get(in).getAge(),getInjuriedlist().get(in).condsNames(), getInjuriedlist().get(in).getCurrent().getName(),getInjuriedlist().get(in).getTimeofinjury(),getInjuriedlist().get(in).getProgressionRate(),getInjuriedlist().get(in).getProgressionofInjury(),getInjuriedlist().get(in).getHat(),"minutes" );
+			System.out.printf("%-10d|%-9d|%-3d|%-16s|%18s|%-14s|%-16d|%-11d|%-2d %-17s|\n", ID, getInjuriedlist().get(in).getId(),(int)getInjuriedlist().get(in).getAge(),getInjuriedlist().get(in).condsNames(), getInjuriedlist().get(in).getCurrent().getName(),getInjuriedlist().get(in).getTimeofinjury(),getInjuriedlist().get(in).getProgressionRate(),getInjuriedlist().get(in).getProgressionofInjury(),getInjuriedlist().get(in).getHat(),"minutes" );
 		}
 		}
 		
@@ -196,9 +196,9 @@ public void printInjuried(int simAlltime) {
 public void injuryandtreatment(worker injuried, int simAlltime, int simMaxtime, String timeofinjury) {
 	if(simAlltime!=simMaxtime) {
 	if(generator.nextInt((10-getDensity())*3)==0) {
-		if(generator.nextInt((10-getDensity())*3)==0) {
+		if(generator.nextInt((10-getDensity()))==0) {
 			if(getInjuriedlist().isEmpty()) {
-				for(int k = 0; k<generator.nextInt((getDensity())); k++) {
+				for(int k = 0; k<generator.nextInt((getDensity())+1); k++) {
 				injuried=chooseRandomworker();
 					injuried.addinjury(this, timeofinjury);
 					Injuriedlist.add(injuried);

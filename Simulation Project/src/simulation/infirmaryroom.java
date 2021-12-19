@@ -12,6 +12,7 @@ public class infirmaryroom extends medicalintervention{
 	@Override
 	public void treatmentadminstraition(worker injuried, int simTime, factory workerFactory) {
 		if(!injuried.isCheckedInfermary()) {
+		if(simTime==injuried.getWaitTime()) {
 			if(Rangeofcaplbility>injuried.getCurrent().level) {
 			injuried.setProgressionRate(injuried.getProgressionRate()-10);
 			injuried.setCheckedInfermary(true);
@@ -25,12 +26,12 @@ public class infirmaryroom extends medicalintervention{
 			if(Rangeofcaplbility<injuried.getCurrent().level) {
 				injuried.setProgressionRate(injuried.getProgressionRate()-1);
 				injuried.setCheckedInfermary(true);
+				}
 			}
-			}
-	
 		}
-		
 	}
+		
+}
 
 
 		
