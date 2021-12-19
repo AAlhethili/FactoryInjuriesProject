@@ -53,7 +53,7 @@ public class hospital extends medicalintervention{
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" "+tof.doesor(workerFactory.checksmartkit())+"have Smart Aid kits, was Injuried on: "+ injuried.getTimeofinjury()+" had "+injuried.getPeopleAround()+" around when injuried");
 			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedAK())+"First Aid Kit as there"+tof.wasno(injuried.isMidkitwhenInjuried())+"First Aid Kit close by when worker was injuried");
-			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"Medically trained worker"+workerFactory.MedicalIntervention.size());
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"Medically trained worker");
 			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedIR())+"The infirmary");
 			System.out.println("Worker Was injuried and the factroy is cabable of treating the worker");
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
@@ -66,7 +66,7 @@ public class hospital extends medicalintervention{
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" "+tof.doesor(workerFactory.checksmartkit())+"have Smart Aid kits, was Injuried on: "+ injuried.getTimeofinjury()+" had "+injuried.getPeopleAround()+" around when injuried");
 			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedAK())+"First Aid Kit as there"+tof.wasno(injuried.isMidkitwhenInjuried())+"First Aid Kit close by when worker was injuried");
-			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"by Medically trained worker "+workerFactory.MedicalIntervention.size());
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"by Medically trained worker ");
 			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedIR())+"The infirmary");
 			System.out.println("Hospital arrived in "+ injuried.getArrivalTimenoCountdown()+" minutes and unfortuntly worker was permenatly injuried");	
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
@@ -80,7 +80,7 @@ public class hospital extends medicalintervention{
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" "+tof.doesor(workerFactory.checksmartkit())+"have Smart Aid kits, was Injuried on: "+ injuried.getTimeofinjury()+" had "+injuried.getPeopleAround()+" around when injuried");
 			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedAK())+"First Aid Kit as there"+tof.wasno(injuried.isMidkitwhenInjuried())+"First Aid Kit close by when worker was injuried");
-			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"Medically trained worker "+workerFactory.MedicalIntervention.size());
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"Medically trained worker ");
 			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedIR())+"The infirmary");
 			System.out.println("Hospital Arrived in "+ injuried.getArrivalTimenoCountdown()+" minutes and Worker Was Treated");
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
