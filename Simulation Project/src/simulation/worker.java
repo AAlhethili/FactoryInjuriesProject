@@ -61,7 +61,7 @@ public worker(int id, double avg, int avgcheck) {
 	CheckedMedicalWorker=false;
 	calledHospital=false;
 	fullyprogressed=false;
-	if(generator.nextInt(50)==0) {
+	if(generator.nextInt(10)==0) {
 		knowsHowtoUseMedikit=true;
 	}
 	else {
@@ -90,7 +90,7 @@ public worker(int id, double avg, int avgcheck) {
 			break;
 		}
 	}
-	if((generator.nextInt(40))==0) {
+	if((generator.nextInt(100))==0) {
 		if(age<50) {
 			conds.clear();
 		}
@@ -113,8 +113,13 @@ public worker(int id, double avg, int avgcheck) {
 
 public void addinjury(factory myfactory, String timeofinjury) {
 	this.timeofinjury=timeofinjury;
+	setMidkitwhenInjuried(false);
 	setProgress(false);
 	setTreated(false);
+	setUsedAK(false);
+	setUsedSAK(false);
+	setUsedIR(false);
+	setHadMWnearby(false);
 	setCalledHospital(false);
 	setCheckedFirsAid(false);
 	setCheckedInfermary(false);
@@ -146,7 +151,7 @@ public void addinjury(factory myfactory, String timeofinjury) {
 		peopleAround=myfactory.getDensity()-generator.nextInt(4);
 		if(peopleAround<0) {peopleAround=0;}
 	}
-	MidkitwhenInjuried=generator.nextBoolean();
+	MidkitwhenInjuried=true;
 	injurycount+=1;
 
 }
@@ -172,7 +177,6 @@ public int regularCheckupTime(double freaquency) {
 	return TC;
 }
 public void FinishedTreatment(){
-
 	setTreated(true);
 	setInjuired(false);
 }

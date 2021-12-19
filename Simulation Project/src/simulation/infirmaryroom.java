@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 public class infirmaryroom extends medicalintervention{
 	SecureRandom generator = new SecureRandom();
 	  public infirmaryroom() {
-		 Rangeofcaplbility=/*7*/generator.nextInt(6)+1;
+		 Rangeofcaplbility=/*6;*/generator.nextInt(6)+1;
 		 
 	 }
 

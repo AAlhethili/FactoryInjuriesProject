@@ -12,6 +12,7 @@ public class FirstAidKit extends medicalintervention {
 	public void treatmentadminstraition(worker a, int simTime, factory workerfactory){
 		if(!a.isCheckedFirsAid()) {
 			if(Rangeofcaplbility>=a.getCurrent().level) {
+
 				checkagain=9999999;
 				int worker=0;
 				for(int i=1; i<= a.getPeopleAround();i++) {
@@ -25,15 +26,14 @@ public class FirstAidKit extends medicalintervention {
 						someoneNearby=true;
 						break;
 						}
-				}
-					
+				}	
 			if(someoneNearby) {
 				a.setProgressionRate(a.getProgressionRate()-5);
 				a.setUsedAK(true);
 				someoneNearby=false;
-					}
 				}
 			}
+		}
 		a.setCheckedFirsAid(true);
 		}
 		

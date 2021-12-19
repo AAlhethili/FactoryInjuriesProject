@@ -9,9 +9,9 @@ public enum injuries {
 	Skindisorders(15, 2, 1,padRight("Skin injury", 20)),
 	Poisonings(15, 3, 2,padRight("Poisioning", 20)),
 	Hearingloss(10, 0, 2,padRight("Ear injury", 20)),
-	Visionloss(15, 0, 3, padRight("Eye injury", 20)),
+	Visionloss(15, 0, 4, padRight("Eye injury", 20)),
 	Chocking(20, 3, 1,padRight("Chocking", 20)),
-	Amputation(20, 1, 6, padRight("Amputation", 20)),
+	Amputation(15, 1, 6, padRight("Amputation", 20)),
 	None(0,0,0, padRight("Nothing", 20));
 	int progressionfactor;
 	int catogery;

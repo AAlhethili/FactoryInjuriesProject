@@ -29,6 +29,8 @@ public ArrayList<medicallytrainedworker> FirstResponders = new ArrayList<medical
 public ArrayList<worker> Injuriedlist = new ArrayList<worker>();
 public ArrayList<worker> retiredlist = new ArrayList<worker>();
 public ArrayList<medicalintervention> MedicalIntervention = new ArrayList<medicalintervention>();
+private infirmaryroom factoryinfermary;
+private medicalintervention factoryKit;
 
 
 public factory(int iD) {
@@ -56,10 +58,26 @@ public factory(int iD) {
 	noFirstResponders=FirstResponders.size();
 	
 }
+public boolean checksmartkit() {
+	for(int i=0; i<MedicalIntervention.size();i++) {
+		if (MedicalIntervention.get(i) instanceof smartFirstAidkit) {
+			return true;
+		}
+	}
+	return false;
+}
+public boolean checkkit() {
+	for(int i=0; i<MedicalIntervention.size();i++) {
+		if (MedicalIntervention.get(i) instanceof FirstAidKit) {
+			return true;
+		}
+	}
+	return false;
+}
 public void createworkers(int noworkers) {
 	
 	for(int i=1; i<=noworkers; i++) {
-		if(generator.nextInt(100)==0) {
+		if(generator.nextInt(10)==0) {
 		worker a = new medicallytrainedworker(i,avg,avgcheckup);
 		wlist.add(a);
 		}
@@ -71,10 +89,10 @@ public void createworkers(int noworkers) {
 	if(regularcheckup==false) {
 		for(int i=0; i<=noworkers-1; i++) {
 			
-			double above0 = generator.nextGaussian()*0.6;
+			double above0 = generator.nextGaussian()*1;
 			while(above0<0||above0>4)
 			{
-			above0 = generator.nextGaussian()*0.6;	
+			above0 = generator.nextGaussian()*1;	
 			}
 			wlist.get(i).setRegularcheckuprate((int) Math.round(above0));
 		}
@@ -84,17 +102,18 @@ public void createworkers(int noworkers) {
 public void createRooms() {
 	
 		infirmaryroom room = new infirmaryroom();
+		factoryinfermary=room;
 		MedicalIntervention.add(room);
 }
 public void createFirstAidKits() {
-		HasSmartFirstAidkit=false;
-		if(generator.nextInt(100)==0 /*true*/) {
+		if(generator.nextInt(5)==0) {
 			medicalintervention smartkit = new smartFirstAidkit();
+			factoryKit=smartkit;
 			MedicalIntervention.add(smartkit);
-			HasSmartFirstAidkit=true;
 		}
 		else {
 			FirstAidKit kit = new FirstAidKit();
+			factoryKit=kit;
 			MedicalIntervention.add(kit);
 		}
 	
@@ -103,11 +122,11 @@ public void createFirstAidKits() {
 public void showFactoryInfo(int Days, int hours) {
 	calculateNumofPermaInjuries();
 	System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
-	System.out.println("Factory number: "+getID()+" Had a total of "+getTotalnoOfPermanantInjuried()+" Permenant Injuries during the duration of "+ Days +" that"+tof.doesor(isHasSmartFirstAidkit())+"implemnts Smart Aid kits was Injuried on: ");
-	System.out.println("The worker"+tof.didOrDidNot(false)+"by First Aid Kit");
-	System.out.println("The worker"+tof.didOrDidNot(true)+"by Medically trained worker");
-	System.out.println("The worker"+tof.didOrDidNot(true)+"by The infirmary");
-	System.out.println("Worker Was injuried and the factroy is cabable of treating the worker");
+	System.out.println("Factory number ["+getID()+"] with worker population of ["+noworkers+"] Had a total of ["+getTotalnoOfPermanantInjuried()+"] Permenant Injuries during the duration of ["+ Days +"] Days");
+	System.out.println("The factory"+tof.doesor(checksmartkit())+"implemnt Smart Aid kits and had ["+noFirstResponders+"] Medically trained workers and ["+CalculatWhocanuseMK()+"] Who can use First Aid Kits" );
+	System.out.println("The factory had a maximum injury of ["+MaxProgressedInjury+"%] and minumum injury of ["+MinProgressedInjury+"%]");
+	System.out.println("The factory had a Infirmary capleability of ["+factoryinfermary.getRangeofcaplbility()+"] out of 6");
+	System.out.println("Most workers were around age ["+String.format("%.2f", calculateAvgAge())+"] and the average time they do regular health checkup is ["+String.format("%.2f", calculateAvgcheckup())+"] times every month");
 	System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 }
 public double calculateAvgAge() {
@@ -136,6 +155,14 @@ public void calculateNumofPermaInjuries() {
 		;
 	}
 }
+public int CalculatWhocanuseMK() {
+	int total=0;
+	for(int i=0; i<=noworkers-1; i++) {
+		if(wlist.get(i).isKnowsHowtoUseMedikit())
+			total++;
+	}
+	return total;
+}
 public worker chooseRandomworker(){
 	worker randomSelect = wlist.get(generator.nextInt(wlist.size()));
 		randomSelect = wlist.get(generator.nextInt(wlist.size()));	
@@ -159,7 +186,7 @@ public void LoopTreating(int simTime) {
 public void treatWorker(worker injuried, int simTime) {
 	if (injuried.isMidkitwhenInjuried()) {
 		for(int i=0; i<MedicalIntervention.size();i++) {
-			if (MedicalIntervention.get(i) instanceof FirstAidKit) {
+			if (!(MedicalIntervention.get(i) instanceof smartFirstAidkit)&&!(MedicalIntervention.get(i) instanceof infirmaryroom)) {
 				MedicalIntervention.get(i).treatmentadminstraition(injuried, simTime, this);
 			}
 			if (MedicalIntervention.get(i) instanceof smartFirstAidkit) {
@@ -167,14 +194,14 @@ public void treatWorker(worker injuried, int simTime) {
 			}
 		}
 	}
+		MedicalWorker.treatmentadminstraition(injuried, simTime, this);
+		
 			for(int i=0; i<MedicalIntervention.size();i++) {
 				if (MedicalIntervention.get(i) instanceof infirmaryroom) {
 					MedicalIntervention.get(i).treatmentadminstraition(injuried, simTime, this);
 				}
 			}
 			
-		MedicalWorker.treatmentadminstraition(injuried, simTime, this);
-		
 		factorytoHosptial.treatmentadminstraition(injuried, simTime, this);		
 //		printInjuried(simTime);
 				
@@ -206,8 +233,8 @@ public void printInjuried(int simAlltime) {
 
 public void injuryandtreatment(worker injuried, int simAlltime, int simMaxtime, String timeofinjury) {
 	if(simAlltime!=simMaxtime) {
-	if(generator.nextInt((10-getDensity())*3)==0) {
-		if(generator.nextInt((10-getDensity()))==0) {
+	if(generator.nextInt((10-getDensity())*10)==0) {
+		if(generator.nextInt((10-getDensity())*3)==0) {
 			if(getInjuriedlist().isEmpty()) {
 				for(int k = 0; k<generator.nextInt((getDensity())+1); k++) {
 				injuried=chooseRandomworker();

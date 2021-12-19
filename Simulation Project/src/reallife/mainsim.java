@@ -14,7 +14,7 @@ public static void main(String[] args) {
 	int sim1Miutes=(1*workhours*60);
 	int simAlltime=1;
 	int simMaxtime=simDays*sim1Miutes;
-	int noFactories=10;
+	int noFactories=100;
 	worker injuried = new worker();
 	factory selectedFactory;
 	ArrayList<factory> factorylist = createfactory(noFactories);
@@ -35,9 +35,10 @@ public static void main(String[] args) {
 		simAlltime++;
 		 }
 	}
+	System.out.println("\n\n\n\n\n");
 	for(int factory = 0; factory<factorylist.size(); factory++) {
 		selectedFactory = factorylist.get(factory);
-		
+		selectedFactory.showFactoryInfo(simDays, workhours);
 	}	
 
 }

@@ -20,6 +20,16 @@ public class ToolsofStrings {
 		}
 		return dod;
 	}
+	public String wasno(boolean dd) {
+		String dod;
+		if(dd) {
+			dod=" was a ";
+		}
+		else {
+			dod= " was no ";
+		}
+		return dod;
+	}
 	public String doesor(boolean dd) {
 		String dod;
 		if(dd) {
