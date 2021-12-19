@@ -197,11 +197,7 @@ public String condsNames(){
 	String names = Arrays.stream(namesStrings).collect(Collectors.joining(","));
 	return names;
 }
-public void removeinjury() {
-	current=injurytypes[9];
-}
-public void showStatus(factory myFactory) {
-}
+
 
 public int getId() {
 	return id;

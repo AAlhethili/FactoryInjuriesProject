@@ -118,16 +118,7 @@ public void createFirstAidKits() {
 	
 		
 }
-public void showFactoryInfo(int Days, int hours) {
-	calculateNumofPermaInjuries();
-	System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
-	System.out.println("Factory number ["+getID()+"] with worker population of ["+noworkers+"] Had a total of ["+getTotalnoOfPermanantInjuried()+"] Permenant Injuries during the duration of ["+ Days +"] Days\n");
-	System.out.println("The factory["+tof.doesor(checksmartkit())+"]implemnt Smart Aid kits and had ["+noFirstResponders+"] Medically trained workers and ["+CalculatWhocanuseMK()+"] Who can use First Aid Kits\n" );
-	System.out.println("The factory had a maximum injury of ["+MaxProgressedInjury+"%] and minumum injury of ["+MinProgressedInjury+"%]\n");
-	System.out.println("The factory had a Infirmary capleability of ["+factoryinfermary.getRangeofcaplbility()+"] out of 7\n");
-	System.out.println("Most workers were around age ["+String.format("%.2f", calculateAvgAge())+"] and the average time they do regular health checkup is ["+String.format("%.2f", calculateAvgcheckup())+"] times every month");
-	System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
-}
+
 public double calculateAvgAge() {
 	double sum=0;
 	double avgage;
@@ -257,7 +248,16 @@ public void injuryandtreatment(worker injuried,int simDay, int simAlltime, int s
 		}
 }
 
-
+public void showFactoryInfo(int Days, int hours) {
+	calculateNumofPermaInjuries();
+	System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+	System.out.println("Factory number ["+getID()+"] with worker population of ["+noworkers+"] Had a total of ["+getTotalnoOfPermanantInjuried()+"] Permenant Injuries during the duration of ["+ Days +"] Days\n");
+	System.out.println("The factory["+tof.doesor(checksmartkit())+"]implemnt Smart Aid kits and had ["+noFirstResponders+"] Medically trained workers and ["+CalculatWhocanuseMK()+"] Who can use First Aid Kits\n" );
+	System.out.println("The factory had a maximum injury of ["+MaxProgressedInjury+"%] and minumum injury of ["+MinProgressedInjury+"%]\n");
+	System.out.println("The factory had a Infirmary capleability of ["+factoryinfermary.getRangeofcaplbility()+"] out of 7\n");
+	System.out.println("Most workers were around age ["+String.format("%.2f", calculateAvgAge())+"] and the average time they do regular health checkup is ["+String.format("%.2f", calculateAvgcheckup())+"] times every month");
+	System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+}
 public int getNoworkers() {
 	return noworkers;
 }
