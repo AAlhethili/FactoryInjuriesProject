@@ -19,7 +19,7 @@ public class medicallytrainedworker extends worker implements medicaltreatmant {
 	}
 
 	@Override
-	public void treatmentadminstraition(worker a, int simTime,factory workerfactory) {
+	public void treatmentadminstraition(worker a,int simDay, int simTime,factory workerfactory) {
 		if(!a.isCheckedMedicalWorker()) {
 			if(a.getCurrent().level<=Rangeofcaplbility) {
 				checkagain=9999999;

@@ -3,7 +3,7 @@ package simulation;
 public class smartFirstAidkit extends FirstAidKit {
 
 	@Override
-	public void treatmentadminstraition(worker a, int simTime, factory workerfactory) {
+	public void treatmentadminstraition(worker a,int simDay, int simTime, factory workerfactory) {
 		if(!a.isCheckedFirsAid()) {
 			a.setProgressionRate(a.getProgressionRate()-5);
 			a.setUsedAK(true);

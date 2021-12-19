@@ -7,7 +7,7 @@ public class factory {
 	
 SecureRandom generator = new SecureRandom();
 ToolsofStrings tof = new ToolsofStrings();
-public int ID;
+private int ID;
 private int noworkers;
 private int noFirstResponders;
 private int density;
@@ -27,7 +27,6 @@ private int TotalnoOfPermanantInjuried;
 public ArrayList<worker> wlist = new ArrayList<worker>();
 public ArrayList<medicallytrainedworker> FirstResponders = new ArrayList<medicallytrainedworker>();
 public ArrayList<worker> Injuriedlist = new ArrayList<worker>();
-public ArrayList<worker> retiredlist = new ArrayList<worker>();
 public ArrayList<medicalintervention> MedicalIntervention = new ArrayList<medicalintervention>();
 private infirmaryroom factoryinfermary;
 private medicalintervention factoryKit;
@@ -172,37 +171,37 @@ public worker chooseRandomworker(){
 	return randomSelect;
 	
 }
-public void LoopTreating(int simTime) {
+public void LoopTreating(int simTime,int simDay) {
 	for(int i = 0; i<getInjuriedlist().size(); i++) {
 	if(!getInjuriedlist().get(i).isInjuired()||getInjuriedlist().get(i).isPermenatlyinjuried()){
 		getInjuriedlist().remove(getInjuriedlist().get(i));}
 	if(!Injuriedlist.isEmpty()) {
 	for(int j = 0; j<getInjuriedlist().size(); j++) {
-		treatWorker(getInjuriedlist().get(j), simTime);
+		treatWorker(getInjuriedlist().get(j),simDay, simTime);
 		}
 	}
 	}
 }
-public void treatWorker(worker injuried, int simTime) {
+public void treatWorker(worker injuried,int simDay, int simTime) {
 	if (injuried.isMidkitwhenInjuried()) {
 		for(int i=0; i<MedicalIntervention.size();i++) {
 			if (!(MedicalIntervention.get(i) instanceof smartFirstAidkit)&&!(MedicalIntervention.get(i) instanceof infirmaryroom)) {
-				MedicalIntervention.get(i).treatmentadminstraition(injuried, simTime, this);
+				MedicalIntervention.get(i).treatmentadminstraition(injuried,simDay, simTime, this);
 			}
 			if (MedicalIntervention.get(i) instanceof smartFirstAidkit) {
-				MedicalIntervention.get(i).treatmentadminstraition(injuried, simTime, this);
+				MedicalIntervention.get(i).treatmentadminstraition(injuried,simDay, simTime, this);
 			}
 		}
 	}
-		MedicalWorker.treatmentadminstraition(injuried, simTime, this);
+		MedicalWorker.treatmentadminstraition(injuried,simDay, simTime, this);
 		
 			for(int i=0; i<MedicalIntervention.size();i++) {
 				if (MedicalIntervention.get(i) instanceof infirmaryroom) {
-					MedicalIntervention.get(i).treatmentadminstraition(injuried, simTime, this);
+					MedicalIntervention.get(i).treatmentadminstraition(injuried,simDay, simTime, this);
 				}
 			}
 			
-		factorytoHosptial.treatmentadminstraition(injuried, simTime, this);		
+		factorytoHosptial.treatmentadminstraition(injuried,simDay, simTime, this);		
 //		printInjuried(simTime);
 				
 
@@ -216,9 +215,9 @@ public void showWorkerList() {
 		System.out.println(wlist.get(i).id+"		"+wlist.get(i).getAge()+"		"+wlist.get(i).getRegularcheckuprate());
 	}
 }
-public void printInjuried(int simAlltime) {
+public void printInjuried(int simAlltime, int simDay) {
 	for(int in=0; in<getInjuriedlist().size();in++) {
-		if(simAlltime%480!=0) {
+		if(simAlltime%simDay!=0) {
 //		if(selectedFactory.getInjuriedlist().get(in).hat==0) {
 //			
 //
@@ -231,7 +230,7 @@ public void printInjuried(int simAlltime) {
 	}
 }
 
-public void injuryandtreatment(worker injuried, int simAlltime, int simMaxtime, String timeofinjury) {
+public void injuryandtreatment(worker injuried,int simDay, int simAlltime, int simMaxtime, String timeofinjury) {
 	if(simAlltime!=simMaxtime) {
 	if(generator.nextInt((10-getDensity())*10)==0) {
 		if(generator.nextInt((10-getDensity())*3)==0) {
@@ -254,7 +253,7 @@ public void injuryandtreatment(worker injuried, int simAlltime, int simMaxtime, 
 	}
 }
 		if(!Injuriedlist.isEmpty()) {
-			LoopTreating(simAlltime);
+			LoopTreating(simAlltime,simDay);
 		}
 }
 
@@ -303,12 +302,6 @@ public ArrayList<worker> getInjuriedlist() {
 }
 public void setInjuriedlist(ArrayList<worker> injuriedlist) {
 	Injuriedlist = injuriedlist;
-}
-public ArrayList<worker> getRetiredlist() {
-	return retiredlist;
-}
-public void setRetiredlist(ArrayList<worker> retiredlist) {
-	this.retiredlist = retiredlist;
 }
 public ArrayList<medicalintervention> getMedicalIntervention() {
 	return MedicalIntervention;

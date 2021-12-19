@@ -9,7 +9,7 @@ public class FirstAidKit extends medicalintervention {
 	 
  }
 	
-	public void treatmentadminstraition(worker a, int simTime, factory workerfactory){
+	public void treatmentadminstraition(worker a,int simDay, int simTime, factory workerfactory){
 		if(!a.isCheckedFirsAid()) {
 			if(Rangeofcaplbility>=a.getCurrent().level) {
 

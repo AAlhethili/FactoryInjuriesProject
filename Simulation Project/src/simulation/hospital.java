@@ -19,8 +19,8 @@ public class hospital extends medicalintervention{
 
 
 	@Override
-	public void treatmentadminstraition(worker injuried, int simTime, factory workerFactory) {
-		if (/* (ArrivalTime==0&&simTime%480!=0)|| */((!injuried.isCalledHospital())&&simTime%480!=0)) {
+	public void treatmentadminstraition(worker injuried,int simDay, int simTime, factory workerFactory) {
+		if (/* (ArrivalTime==0&&simTime%simDay!=0)|| */((!injuried.isCalledHospital())&&simTime%simDay!=0)) {
 		if(generator.nextBoolean()) {
 			ArrivalTime=workerFactory.getTimetohospital()-generator.nextInt(4);
 			injuried.setHat(ArrivalTime+1);
@@ -38,7 +38,7 @@ public class hospital extends medicalintervention{
 			injuried.setCalledHospital(true);
 		}
 	}
-	if(simTime%480==0) {
+	if(simTime%simDay==0) {
 		injuried.setProgressionofInjury(injuried.getProgressionofInjury()+(injuried.getHat()*injuried.getProgressionRate()));
 		if(injuried.getProgressionofInjury()>100) {
 			injuried.setProgressionofInjury(100);
@@ -59,7 +59,7 @@ public class hospital extends medicalintervention{
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			injuried.FinishedTreatment();
 	}
-	if((injuried.getHat()==1||simTime%480==0)&&!injuried.isTreated()) {
+	if((injuried.getHat()==1||simTime%simDay==0)&&!injuried.isTreated()) {
 		if(injuried.getProgressionofInjury()>=100){
 			workerFactory.setMaxProgressedInjury(100);
 			injuried.setPermenatlyinjuried(true);
@@ -87,7 +87,7 @@ public class hospital extends medicalintervention{
 			injuried.FinishedTreatment();
 			}
 		}
-	if(simTime%480!=0) {
+	if(simTime%simDay!=0) {
 		if(injuried.isProgress()) {
 	injuried.progressInjury();}
 		else {
