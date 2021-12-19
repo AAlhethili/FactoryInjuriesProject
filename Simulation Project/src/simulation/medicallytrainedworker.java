@@ -12,7 +12,7 @@ public class medicallytrainedworker extends worker implements medicaltreatmant {
 	public medicallytrainedworker() {
 		setRangeofcaplbility(2);
 	}
-	public medicallytrainedworker(int id, double avg, double avgcheck) {
+	public medicallytrainedworker(int id, double avg, int avgcheck) {
 		super(id,avg, avgcheck);
 		setRangeofcaplbility(2);
 		setKnowsHowtoUseMedikit(true);

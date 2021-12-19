@@ -3,6 +3,7 @@ import java.security.SecureRandom;
 
 public class hospital extends medicalintervention{
 	private SecureRandom generator = new SecureRandom();
+	private ToolsofStrings tof = new ToolsofStrings();
     private int ArrivalTime=0;
     public hospital(){
     }
@@ -50,10 +51,10 @@ public class hospital extends medicalintervention{
 			if(workerFactory.getMinProgressedInjury()>injuried.getProgressionofInjury()) {
 				workerFactory.setMinProgressedInjury(injuried.getProgressionofInjury());}
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
-			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" that"+doesor(workerFactory.isHasSmartFirstAidkit())+"implemnts Smart Aid kits was Injuried on: "+ injuried.getTimeofinjury());
-			System.out.println("The worker"+didOrDidNot(injuried.isUsedAK())+"by First Aid Kit");
-			System.out.println("The worker"+didOrDidNot(injuried.isHadMWnearby())+"by Medically trained worker");
-			System.out.println("The worker"+didOrDidNot(injuried.isUsedIR())+"by The infirmary");
+			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" that"+tof.doesor(workerFactory.isHasSmartFirstAidkit())+"implemnts Smart Aid kits was Injuried on: "+ injuried.getTimeofinjury());
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedAK())+"by First Aid Kit");
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"by Medically trained worker");
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedIR())+"by The infirmary");
 			System.out.println("Worker Was injuried and the factroy is cabable of treating the worker");
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			injuried.FinishedTreatment();
@@ -63,10 +64,10 @@ public class hospital extends medicalintervention{
 			workerFactory.setMaxProgressedInjury(100);
 			injuried.setPermenatlyinjuried(true);
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
-			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" that"+doesor(workerFactory.isHasSmartFirstAidkit())+"implemnts Smart Aid kits was Injuried on: "+ injuried.getTimeofinjury());
-			System.out.println("The worker"+didOrDidNot(injuried.isUsedAK())+"by First Aid Kit");
-			System.out.println("The worker"+didOrDidNot(injuried.isHadMWnearby())+"by Medically trained worker");
-			System.out.println("The worker"+didOrDidNot(injuried.isUsedIR())+"by The infirmary");
+			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" that"+tof.doesor(workerFactory.isHasSmartFirstAidkit())+"implemnts Smart Aid kits was Injuried on: "+ injuried.getTimeofinjury());
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedAK())+"by First Aid Kit");
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"by Medically trained worker");
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedIR())+"by The infirmary");
 			System.out.println("Hospital arrived in "+ injuried.getArrivalTimenoCountdown()+" minutes and unfortuntly worker was permenatly injuried");	
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			injuried.FinishedTreatment();
@@ -77,43 +78,27 @@ public class hospital extends medicalintervention{
 			if(workerFactory.getMinProgressedInjury()>injuried.getProgressionofInjury()) {
 				workerFactory.setMinProgressedInjury(injuried.getProgressionofInjury());}
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
-			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" that"+doesor(workerFactory.isHasSmartFirstAidkit())+"implemnts Smart Aid kits was Injuried on: "+ injuried.getTimeofinjury());
-			System.out.println("The worker"+didOrDidNot(injuried.isUsedAK())+"by First Aid Kit");
-			System.out.println("The worker"+didOrDidNot(injuried.isHadMWnearby())+"by Medically trained worker");
-			System.out.println("The worker"+didOrDidNot(injuried.isUsedIR())+"by The infirmary");
+			System.out.println("Worker "+injuried.getId()+" who's age is "+(int)injuried.getAge()+" Of Factory Number: "+ workerFactory.getID()+" that"+tof.doesor(workerFactory.isHasSmartFirstAidkit())+"implemnts Smart Aid kits was Injuried on: "+ injuried.getTimeofinjury());
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedAK())+"by First Aid Kit");
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isHadMWnearby())+"by Medically trained worker");
+			System.out.println("The worker"+tof.didOrDidNot(injuried.isUsedIR())+"by The infirmary");
 			System.out.println("Hospital Arrived in "+ injuried.getArrivalTimenoCountdown()+" minutes and Worker Was Treated");
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			injuried.FinishedTreatment();
 			}
 		}
 	if(simTime%480!=0) {
-	injuried.progressInjury();
+		if(injuried.isProgress()) {
+	injuried.progressInjury();}
+		else {
+			injuried.setProgress(true);
+		}
 	}
 	if(injuried.getHat()>0) {
 	injuried.setHat(injuried.getHat() - 1);
 	}
 	}
 		
-	public String didOrDidNot(boolean dd) {
-		String dod;
-		if(dd) {
-			dod=" was treated by ";
-		}
-		else {
-			dod= " was not treated by ";
-		}
-		return dod;
-	}
-	public String doesor(boolean dd) {
-		String dod;
-		if(dd) {
-			dod=" dose ";
-		}
-		else {
-			dod= " doesn't ";
-		}
-		return dod;
-	}
 	}
 		
 	

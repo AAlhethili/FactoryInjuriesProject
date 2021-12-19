@@ -6,13 +6,14 @@ import java.security.SecureRandom;
 public class factory {
 	
 SecureRandom generator = new SecureRandom();
+ToolsofStrings tof = new ToolsofStrings();
 public int ID;
 private int noworkers;
 private int noFirstResponders;
 private int density;
 private boolean regularcheckup;
 private boolean HasSmartFirstAidkit;
-private double avgcheckup;
+private int avgcheckup;
 private double avgcheckuprate;
 private double avg;
 private double avgage;
@@ -35,7 +36,7 @@ public factory(int iD) {
 	ID = iD;
 	factorytoHosptial=new hospital();
 	avg = generator.nextInt(36)+25;
-	avgcheckup= 4;
+	avgcheckup= generator.nextInt(4)+1;
 	regularcheckup = false;
 	MaxProgressedInjury=0;
 	MinProgressedInjury=999999;
@@ -75,7 +76,7 @@ public void createworkers(int noworkers) {
 			{
 			above0 = generator.nextGaussian()*0.6;	
 			}
-			wlist.get(i).setRegularcheckuprate(above0);
+			wlist.get(i).setRegularcheckuprate((int) Math.round(above0));
 		}
 	}
 		
@@ -98,6 +99,16 @@ public void createFirstAidKits() {
 		}
 	
 		
+}
+public void showFactoryInfo(int Days, int hours) {
+	calculateNumofPermaInjuries();
+	System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
+	System.out.println("Factory number: "+getID()+" Had a total of "+getTotalnoOfPermanantInjuried()+" Permenant Injuries during the duration of "+ Days +" that"+tof.doesor(isHasSmartFirstAidkit())+"implemnts Smart Aid kits was Injuried on: ");
+	System.out.println("The worker"+tof.didOrDidNot(false)+"by First Aid Kit");
+	System.out.println("The worker"+tof.didOrDidNot(true)+"by Medically trained worker");
+	System.out.println("The worker"+tof.didOrDidNot(true)+"by The infirmary");
+	System.out.println("Worker Was injuried and the factroy is cabable of treating the worker");
+	System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 }
 public double calculateAvgAge() {
 	double sum=0;
@@ -309,11 +320,5 @@ public int getMinProgressedInjury() {
 public void setMinProgressedInjury(int minProgressedInjury) {
 	MinProgressedInjury = minProgressedInjury;
 }
-public static String padRight(String s, int n) {
-    return String.format("%-" + n + "s", s);  
-}
 
-public static String padLeft(String s, int n) {
-   return String.format("%" + n + "s", s);  
-}
 }

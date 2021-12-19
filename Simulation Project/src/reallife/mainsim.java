@@ -1,5 +1,6 @@
 package reallife;
 import java.util.ArrayList;
+import simulation.ToolsofStrings;
 import java.security.SecureRandom;
 import simulation.factory;
 import simulation.worker;
@@ -7,8 +8,10 @@ import simulation.worker;
 public class mainsim {
 public static void main(String[] args) {
 	SecureRandom generator=new SecureRandom();
+	ToolsofStrings tos= new ToolsofStrings();
 	int simDays=30;
-	int sim1Miutes=(1*8*60);
+	int workhours=8;
+	int sim1Miutes=(1*workhours*60);
 	int simAlltime=1;
 	int simMaxtime=simDays*sim1Miutes;
 	int noFactories=10;
@@ -32,7 +35,10 @@ public static void main(String[] args) {
 		simAlltime++;
 		 }
 	}
+	for(int factory = 0; factory<factorylist.size(); factory++) {
+		selectedFactory = factorylist.get(factory);
 		
+	}	
 
 }
 
@@ -52,13 +58,6 @@ public static ArrayList<Boolean> generateInjuries(ArrayList<factory> FactoriesLi
 	injuryHappening.add(generator.nextBoolean());
 }
 	return injuryHappening;
-}
-public static String padRight(String s, int n) {
-    return String.format("%-" + n + "s", s);  
-}
-
-public static String padLeft(String s, int n) {
-   return String.format("%" + n + "s", s);  
 }
 public static String Time(int Time) {
 	int hour = (int)(9+Math.floor((double)(Time/60.0)));

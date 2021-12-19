@@ -18,9 +18,10 @@ private int waitTime;
 private int HospitalarraivalTime;
 private int ArrivalTimenoCountdown;
 private double age;
-private double regularcheckuprate;
+private int regularcheckuprate;
 private boolean injuired;
 private boolean calledHospital;
+private boolean progress;
 private boolean CheckedFirsAid;
 private boolean usedAK;
 private boolean usedSAK;
@@ -44,7 +45,7 @@ public worker() {
 	
 }
 
-public worker(int id, double avg, double avgcheck) {
+public worker(int id, double avg, int avgcheck) {
 	
 	this.id=id;
 	treatmentcount=0;
@@ -53,6 +54,7 @@ public worker(int id, double avg, double avgcheck) {
 	progressionofInjury=0;
 	HospitalarraivalTime=0;
 	injuired=false;
+	setProgress(false);
 	permenatlyinjuried=false;
 	CheckedFirsAid=false;
 	CheckedInfermary=false;
@@ -111,6 +113,7 @@ public worker(int id, double avg, double avgcheck) {
 
 public void addinjury(factory myfactory, String timeofinjury) {
 	this.timeofinjury=timeofinjury;
+	setProgress(false);
 	setTreated(false);
 	setCalledHospital(false);
 	setCheckedFirsAid(false);
@@ -232,7 +235,7 @@ public double getRegularcheckuprate() {
 	return regularcheckuprate;
 }
 
-public void setRegularcheckuprate(double regularcheckuprate) {
+public void setRegularcheckuprate(int regularcheckuprate) {
 	this.regularcheckuprate = regularcheckuprate;
 }
 
@@ -426,6 +429,14 @@ public boolean isCalledHospital() {
 
 public void setCalledHospital(boolean calledHospital) {
 	this.calledHospital = calledHospital;
+}
+
+public boolean isProgress() {
+	return progress;
+}
+
+public void setProgress(boolean progress) {
+	this.progress = progress;
 }
 
 
