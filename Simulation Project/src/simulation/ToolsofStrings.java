@@ -23,7 +23,7 @@ public class ToolsofStrings {
 	public String doesor(boolean dd) {
 		String dod;
 		if(dd) {
-			dod=" dose ";
+			dod=" does ";
 		}
 		else {
 			dod= " doesn't ";
