@@ -109,7 +109,8 @@ public static void main(String[] args) {
 		simAlltime++;
 		 }
 	}
-	System.out.println("\n\n\n\n\n"); 
+	System.out.println("********************************************************************************************************************************\n\n\n\n");
+	System.out.printf("\t\t\t\t\t\t\tFactory List\n"); 
 	for(int factory = 0; factory<factorylist.size(); factory++) {
 		selectedFactory = factorylist.get(factory);
 		selectedFactory.showFactoryInfo(simDays, workhours); // method to display every factories simulation results giving the crucial info
