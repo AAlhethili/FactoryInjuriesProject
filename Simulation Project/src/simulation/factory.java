@@ -17,6 +17,7 @@ private double avgcheckuprate;
 private double avg;
 private double avgage;
 private hospital factorytoHosptial;
+private medicallytrainedworker MedicalWorker = new medicallytrainedworker();
 private int timetohospital;
 private int MaxProgressedInjury;
 private int MinProgressedInjury;
@@ -57,7 +58,7 @@ public factory(int iD) {
 public void createworkers(int noworkers) {
 	
 	for(int i=1; i<=noworkers; i++) {
-		if(generator.nextInt(60)==0) {
+		if(generator.nextInt(100)==0) {
 		worker a = new medicallytrainedworker(i,avg,avgcheckup);
 		wlist.add(a);
 		}
@@ -86,7 +87,7 @@ public void createRooms() {
 }
 public void createFirstAidKits() {
 		HasSmartFirstAidkit=false;
-		if(generator.nextInt(100)==0) {
+		if(generator.nextInt(100)==0 /*true*/) {
 			medicalintervention smartkit = new smartFirstAidkit();
 			MedicalIntervention.add(smartkit);
 			HasSmartFirstAidkit=true;
@@ -161,6 +162,7 @@ public void treatWorker(worker injuried, int simTime) {
 				}
 			}
 			
+			MedicalWorker.treatmentadminstraition(injuried, simTime, this);
 		
 		factorytoHosptial.treatmentadminstraition(injuried, simTime, this);		
 //		printInjuried(simTime);
@@ -184,7 +186,7 @@ public void printInjuried(int simAlltime) {
 //
 //		}
 		if(!getInjuriedlist().get(in).isTreated()) {
-		System.out.println("Factory: "+ getID()+" " + getInjuriedlist().get(in).getId()+" " + getInjuriedlist().get(in).isInjuired()+" " + getInjuriedlist().get(in).isPermenatlyinjuried()+" "+ getInjuriedlist().get(in).getProgressionRate()+" "+ getInjuriedlist().get(in).getProgressionofInjury()+" "+ getInjuriedlist().get(in).hat+" ");
+			System.out.printf("%-10d|%-4d|%-2d|%-16s|%18s|%-14s|%-16d|%-19d|%-2d %-24s|\n", ID, getInjuriedlist().get(in).getId(),(int)getInjuriedlist().get(in).getAge(),getInjuriedlist().get(in).condsNames(), getInjuriedlist().get(in).getCurrent().getName(),getInjuriedlist().get(in).getTimeofinjury(),getInjuriedlist().get(in).getProgressionRate(),getInjuriedlist().get(in).getProgressionofInjury(),getInjuriedlist().get(in).getHat(),"minutes" );
 		}
 		}
 		
@@ -307,13 +309,11 @@ public int getMinProgressedInjury() {
 public void setMinProgressedInjury(int minProgressedInjury) {
 	MinProgressedInjury = minProgressedInjury;
 }
-@Override
-public String toString() {
-	return "factory [ID=" + String.format("%03d",ID) + ", noworkers=" + String.format("%04d",noworkers) + ", noFirstResponders=" + String.format("%02d",noFirstResponders)
-			+ ", regularcheckup=" + regularcheckup + ", avgcheckuprate=" + avgcheckuprate + ", avgage=" + avgage
-			+ ", TotalInjuries="+ TotalInjuries + ", TimeTohospital=" + factorytoHosptial.ArrivalTime  + ", String.format(\"%04d\",TotalnoOfPermanantInjuried=" + TotalnoOfPermanantInjuried + " injury % "+ Math.round(((double)TotalnoOfPermanantInjuried/(double)noworkers)*100)+ " ]";
+public static String padRight(String s, int n) {
+    return String.format("%-" + n + "s", s);  
 }
 
-
-
+public static String padLeft(String s, int n) {
+   return String.format("%" + n + "s", s);  
+}
 }

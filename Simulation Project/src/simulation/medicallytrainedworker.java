@@ -1,30 +1,48 @@
 package simulation;
 
+import java.security.SecureRandom;
+
 public class medicallytrainedworker extends worker implements medicaltreatmant {
 
 	int Rangeofcaplbility;
+	int checkagain=9999999;
+	SecureRandom generator = new SecureRandom();
 	boolean someoneNearby=false;
 	
+	public medicallytrainedworker() {
+		setRangeofcaplbility(2);
+	}
 	public medicallytrainedworker(int id, double avg, double avgcheck) {
 		super(id,avg, avgcheck);
 		setRangeofcaplbility(2);
+		setKnowsHowtoUseMedikit(true);
 	}
 
 	@Override
 	public void treatmentadminstraition(worker a, int simTime,factory workerfactory) {
 		if(!a.isCheckedMedicalWorker()) {
-			if(workerfactory.getWlist().size()-1-workerfactory.getWlist().indexOf(a)<=(workerfactory.getDensity())) {
-				for(int i=workerfactory.getWlist().indexOf(a); i<= workerfactory.getWlist().indexOf(a)-workerfactory.getDensity();i++) {
-	
-					if(workerfactory.wlist.get(i).isKnowsHowtoUseMedikit()) {
+			if(a.getCurrent().level<=Rangeofcaplbility) {
+				checkagain=9999999;
+				int worker=0;
+				for(int i=1; i<= a.getPeopleAround();i++) {
+					worker=generator.nextInt(workerfactory.getWlist().size());
+					while
+						(worker==checkagain) {
+						worker = generator.nextInt(workerfactory.getWlist().size());
+					}
+					checkagain=worker;
+					if(workerfactory.wlist.get(worker) instanceof medicallytrainedworker) {
 						someoneNearby=true;
 						break;
-					}
+						}
 				}
-			}
+
+					
 			if(someoneNearby) {
 				a.setProgressionRate(a.getProgressionRate()-5);
+				a.setCheckedMedicalWorker(someoneNearby);
 				someoneNearby=false;
+				}
 			}
 		}
 		

@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 public class infirmaryroom extends medicalintervention{
 	SecureRandom generator = new SecureRandom();
 	  public infirmaryroom() {
-		 Rangeofcaplbility=generator.nextInt(6)+3;
+		 Rangeofcaplbility=/*7*/generator.nextInt(6)+1;
 		 
 	 }
 
@@ -13,14 +13,14 @@ public class infirmaryroom extends medicalintervention{
 	public void treatmentadminstraition(worker injuried, int simTime, factory workerFactory) {
 		if(!injuried.isCheckedInfermary()) {
 			if(Rangeofcaplbility>injuried.getCurrent().level) {
-			injuried.setProgressionRate(injuried.getProgressionRate()-15);
+			injuried.setProgressionRate(injuried.getProgressionRate()-10);
 			injuried.setCheckedInfermary(true);
-			injuried.usedIR=true;
+			injuried.setUsedIR(true);
 			}
 			if(Rangeofcaplbility==injuried.getCurrent().level) {
-				injuried.setProgressionRate(injuried.getProgressionRate()-10);
+				injuried.setProgressionRate(injuried.getProgressionRate()-5);
 				injuried.setCheckedInfermary(true);
-				injuried.usedIR=true;
+				injuried.setUsedIR(true);
 			}
 			if(Rangeofcaplbility<injuried.getCurrent().level) {
 				injuried.setProgressionRate(injuried.getProgressionRate()-1);

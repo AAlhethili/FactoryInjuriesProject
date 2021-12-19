@@ -18,11 +18,11 @@ public static void main(String[] args) {
 	for(int day=1; day<=simDays; day++) {
 		for(int minute=1; minute<=sim1Miutes; minute++) {
 //			if(simAlltime%480==0) {
-			System.out.println("-------------------------------------------------------------------------------");
-			System.out.print("Day:"+ day);
-			System.out.println("		Time:"+ Time(minute));
-			System.out.println("-------------------------------------------------------------------------------");
-			System.out.println(padRight("FID", 3)+" | "+padRight("ID", 3)+" | "+" | "+"perma"+" | "+" | "+"PR"+" | "+" | "+"Prg"+" | "+"Smart"+" | "+"f"+" | "+"HAT"+" | "+"useAK"+" | "+" | "+"Midkit"+" | "+" | "+"inury"+" | ");
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+			System.out.print("                                     Day:"+ day);
+			System.out.println("		                           Time:"+ Time(minute));
+			System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
+			System.out.printf("Factory ID|Worker ID|Age|conditions     |Type of Injury      |Time of injury|Progression Rate|Progression|Ambulance time|\n");
 //			}
 		for(int factory = 0; factory<factorylist.size(); factory++) {
 				selectedFactory = factorylist.get(factory);

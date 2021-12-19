@@ -1,6 +1,8 @@
 package simulation;
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 
 
@@ -8,19 +10,22 @@ public class worker {
 
 SecureRandom generator = new SecureRandom();
 public int id;
-public int hat=0;
+private int hat=0;
 private String timeofinjury;
 private int treatmentcount;
 private int injurycount;
 private int HospitalarraivalTime;
+private int ArrivalTimenoCountdown;
 private double age;
 private double regularcheckuprate;
 private boolean injuired;
 private boolean CheckedFirsAid;
-public boolean usedAK;
+private boolean usedAK;
+private boolean usedSAK;
 private boolean CheckedMedicalWorker;
+private boolean HadMWnearby;
 private boolean CheckedInfermary;
-public boolean usedIR;
+private boolean usedIR;
 private boolean knowsHowtoUseMedikit;
 private boolean Treated;
 private boolean permenatlyinjuried;
@@ -51,7 +56,7 @@ public worker(int id, double avg, double avgcheck) {
 	CheckedInfermary=false;
 	CheckedMedicalWorker=false;
 	fullyprogressed=false;
-	if(generator.nextInt(1000)==0) {
+	if(generator.nextInt(50)==0) {
 		knowsHowtoUseMedikit=true;
 	}
 	else {
@@ -169,16 +174,23 @@ public void FinishedTreatment(){
 public void progressInjury() {
 	if(progressionofInjury<100) {
 		progressionofInjury=progressionofInjury+progressionRate;
-		if(progressionofInjury>100) {
+		if(progressionofInjury>=100) {
 			progressionofInjury=100;
 		}
 		}
+}
+public String condsNames(){
+	String[] namesStrings= new String[conds.size()]; 
+	for(int i =0; i<conds.size(); i++) {
+			namesStrings[i]=conds.get(i).name();
+	}
+	String names = Arrays.stream(namesStrings).collect(Collectors.joining(","));
+	return names;
 }
 public void removeinjury() {
 	current=injurytypes[9];
 }
 public void showStatus(factory myFactory) {
-	System.out.println(String.format("%03d",myFactory.getID())+" | "+String.format("%03d",id)+" | "+" | "+permenatlyinjuried+" | "+" | "+String.format("%02d",progressionRate)+" | "+" | "+String.format("%03d",progressionofInjury)+" | "+myFactory.isHasSmartFirstAidkit()+" | "+regularCheckupTime(regularcheckuprate)+" | "+HospitalarraivalTime+" | "+usedAK+" | "+" | "+MidkitwhenInjuried+" | "+" | "+current+" | ");
 }
 
 public int getId() {
@@ -347,6 +359,54 @@ public boolean isTreated() {
 
 public void setTreated(boolean treated) {
 	Treated = treated;
+}
+
+public int getHat() {
+	return hat;
+}
+
+public void setHat(int hat) {
+	this.hat = hat;
+}
+
+public boolean isUsedAK() {
+	return usedAK;
+}
+
+public void setUsedAK(boolean usedAK) {
+	this.usedAK = usedAK;
+}
+
+public boolean isUsedSAK() {
+	return usedSAK;
+}
+
+public void setUsedSAK(boolean usedSAK) {
+	this.usedSAK = usedSAK;
+}
+
+public boolean isHadMWnearby() {
+	return HadMWnearby;
+}
+
+public void setHadMWnearby(boolean hadMWnearby) {
+	HadMWnearby = hadMWnearby;
+}
+
+public boolean isUsedIR() {
+	return usedIR;
+}
+
+public void setUsedIR(boolean usedIR) {
+	this.usedIR = usedIR;
+}
+
+public int getArrivalTimenoCountdown() {
+	return ArrivalTimenoCountdown;
+}
+
+public void setArrivalTimenoCountdown(int arrivalTimenoCountdown) {
+	ArrivalTimenoCountdown = arrivalTimenoCountdown;
 }
 
 
