@@ -41,16 +41,16 @@ public factory(int iD) {
 
 	ID = iD;
 	factoryToHosptial=new hospital();
-	avgAge = generator.nextInt(20)+25;
-	avgCheckUpRate= generator.nextInt(1)+3;
-	imopsesRegularCheckUpRate = true;
+	avgAge = generator.nextInt(20)+25;//lower average age
+	avgCheckUpRate= generator.nextInt(1)+3;//higer check up at this phase
+	imopsesRegularCheckUpRate = true;//all employs have set checkup based on the company rules
 	MaxProgressedInjury=0;
 	MinProgressedInjury=999999;
 	createworkers(generator.nextInt(401)+100);
 	noOfWorkers=workerList.size();
 	createFirstAidKits();
 	createRooms();
-	density=generator.nextInt(4)+1;
+	density=generator.nextInt(4)+1;//lower at this phase
 	avgTimeToHospital = (generator.nextInt(2)+1)*10;
 	avgAge=Math.round(calculateAvgAge());
 	counterPeopleAroundInjury=0;
@@ -116,7 +116,7 @@ public void createRooms() {
 		factoryInfermaryRoom=room;
 		listOfMedicalIntervention.add(room);
 }
-public void createFirstAidKits() {
+public void createFirstAidKits() {//all implement smart aid kit
 		if(true) {
 			medicalintervention smartkit = new smartFirstAidkit();
 			factoryKit=smartkit;

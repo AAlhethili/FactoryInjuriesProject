@@ -6,11 +6,8 @@ import java.security.SecureRandom;
 public class factory {
 	
 SecureRandom generator = new SecureRandom();
-ToolsofStrings tof = new ToolsofStrings();
-private int ID;
-private int noOfWorkers;
-private int noOfFirstResponders;
-private int density;
+ToolsofStrings tof = new ToolsofStrings();//used to change boolean to strings
+
 int counterInjuries;//any variable that starts with counter is used to calculate average data at the end of simulation
 int counterNoOfWorkerWhenInjuryHappened;
 int counterInjuryLevel;
@@ -21,7 +18,10 @@ int counterTreatmentByCapableInfermaryRoom;
 int counterTreatmentByMedicalWorker;
 int counterTreatmentByHospital;
 
-
+private int ID;  //class fields
+private int noOfWorkers;
+private int noOfFirstResponders;
+private int density;
 private boolean imopsesRegularCheckUpRate;
 private boolean hasSmartFirstAidkit;
 private double avgCheckUpRate;
@@ -40,11 +40,11 @@ private infirmaryroom factoryInfermaryRoom;
 private medicalintervention factoryKit;
 
 
-public factory(int iD) {
+public factory(int iD) {//constructor adds random variables
 
 	ID = iD;
 	factoryToHosptial=new hospital();
-	avgAge = generator.nextInt(36)+25;
+	avgAge = generator.nextInt(36)+25;//average age, higher at this phase
 	avgCheckUpRate= generator.nextInt(4)+1;
 	imopsesRegularCheckUpRate = false;
 	MaxProgressedInjury=0;
@@ -72,6 +72,7 @@ public factory(int iD) {
 	noOfFirstResponders=FirstResponders.size();
 	
 }
+//sees if an object is a smart kit returns boolean
 public boolean checksmartkit() {
 	for(int i=0; i<listOfMedicalIntervention.size();i++) {
 		if (listOfMedicalIntervention.get(i) instanceof smartFirstAidkit) {
@@ -80,6 +81,7 @@ public boolean checksmartkit() {
 	}
 	return false;
 }
+//sees if an object is a a normal kit returns boolean
 public boolean checkkit() {
 	for(int i=0; i<listOfMedicalIntervention.size();i++) {
 		if (listOfMedicalIntervention.get(i) instanceof FirstAidKit) {
@@ -88,10 +90,11 @@ public boolean checkkit() {
 	}
 	return false;
 }
+//create Random workers for a factory
 public void createworkers(int noworkers) {
 	
 	for(int i=1; i<=noworkers; i++) {
-		if(generator.nextInt(10)==0) {
+		if(generator.nextInt(10)==0) {//sets medicaally trained workers, low at this phase
 		worker a = new medicallytrainedworker(i,avgAge,avgCheckUpRate);
 		workerList.add(a);
 		}
@@ -101,7 +104,7 @@ public void createworkers(int noworkers) {
 		}
 	}
 	if(imopsesRegularCheckUpRate==false) {
-		for(int i=0; i<=noworkers-1; i++) {
+		for(int i=0; i<=noworkers-1; i++) { //sets regular check up rate for workers, low at this phase
 			
 			double above0 = generator.nextGaussian()*0.7;
 			while(above0<0||above0>4)
@@ -113,28 +116,22 @@ public void createworkers(int noworkers) {
 	}
 		
 }
-public void createRooms() {
+public void createRooms() { //Creates infirmary room
 	
 		infirmaryroom room = new infirmaryroom();
 		factoryInfermaryRoom=room;
 		listOfMedicalIntervention.add(room);
 }
-public void createFirstAidKits() {
-		if(false) {
-			medicalintervention smartkit = new smartFirstAidkit();
-			factoryKit=smartkit;
-			listOfMedicalIntervention.add(smartkit);
-		}
-else {
-	medicalintervention smartkit = new FirstAidKit();
-	factoryKit=smartkit;
-	listOfMedicalIntervention.add(smartkit);
-}
+public void createFirstAidKits() { //Creates Aid kit, no factory implements it at this phase
+
+	medicalintervention kit = new FirstAidKit();
+	factoryKit=kit;
+	listOfMedicalIntervention.add(kit);
 	
 		
 }
 
-public double calculateAvgAge() {
+public double calculateAvgAge() {//returns average age of workers
 	double sum=0;
 	double avgage;
 	for(int i=0; i<=noOfWorkers-1; i++) {
@@ -143,7 +140,7 @@ public double calculateAvgAge() {
 	avgage=sum/(double)noOfWorkers;
 	return avgage;
 }
-public double calculateAvgcheckup() {
+public double calculateAvgcheckup() {//calculate average age of workers without return
 	double sum=0;
 	double avgcheckuprate;
 	for(int i=0; i<=noOfWorkers-1; i++) {
@@ -152,14 +149,14 @@ public double calculateAvgcheckup() {
 	avgcheckuprate=sum/(double)noOfWorkers;
 	return avgcheckuprate;
 }
-public void calculateNumofPermaInjuries() {
+public void calculateNumofPermaInjuries() {//calculates the number of permanent injuries without return
 
 	for(int i=0; i<=noOfWorkers-1; i++) {
 		if(workerList.get(i).isPermenatlyInjured())
 			TotalnoOfPermanantInjuried+=1;
 	}
 }
-public double calculateNumofPerma() {
+public double calculateNumofPerma() {//returns number of permanent injuries
 double number=0;
 		for(int i=0; i<=noOfWorkers-1; i++) {
 			if(workerList.get(i).isPermenatlyInjured())
@@ -168,7 +165,7 @@ double number=0;
 		}
 		return number;
 }
-public int CalculatWhocanuseMK() {
+public int CalculatWhocanuseMK() {// Gives how many workers can use aid kits
 	int total=0;
 	for(int i=0; i<=noOfWorkers-1; i++) {
 		if(workerList.get(i).isKnowsHowtoUseMedikit())
@@ -176,20 +173,20 @@ public int CalculatWhocanuseMK() {
 	}
 	return total;
 }
-public double calculateprecent() {
+public double calculateprecent() { // sees the % of the workers who got permanently injured
 	double precent;
 	precent=((double)getTotalnoOfPermanantInjuried()/(double)getNoOfWorkers())*100;
 	return precent;
 }
-public worker chooseRandomworker(){
+public worker chooseRandomworker(){//return a random, worker who's not injured or permanently injured
 	worker randomSelect = workerList.get(generator.nextInt(workerList.size()));
 		randomSelect = workerList.get(generator.nextInt(workerList.size()));	
 		if(randomSelect.isPermenatlyInjured()||randomSelect.isInjuired()) {
 			randomSelect = workerList.get(generator.nextInt(workerList.size()));	
 		}
 	return randomSelect;
-	
 }
+// loop treating injuries
 public void LoopTreating(int simTime,int simDay) {
 	for(int i = 0; i<getInjuriedlist().size(); i++) {
 	if(!getInjuriedlist().get(i).isInjuired()
@@ -202,6 +199,7 @@ public void LoopTreating(int simTime,int simDay) {
 	}
 	}
 }
+//See who and who can not be treated and treat accordingly
 public void treatWorker(worker injuried,int simDay, int simTime) {
 	if(!injuried.isTreated()) {
 		for(int i=0; i<listOfMedicalIntervention.size();i++) {
@@ -229,13 +227,7 @@ public void treatWorker(worker injuried,int simDay, int simTime) {
 	}
 
 }
-
-public void showWorkerList() {
-	System.out.println("ID		Age		Checkup");
-	for(int i=0; i<=noOfWorkers-1; i++) {
-		System.out.println(workerList.get(i).id+"		"+workerList.get(i).getAge()+"		"+workerList.get(i).getRegularCheckUprate());
-	}
-}
+//print injured person status every minuted 
 public void printInjuried(int simAlltime, int simDay) {
 	for(int in=0; in<getInjuriedlist().size();in++) {
 		if(simAlltime%simDay!=0) {
@@ -256,7 +248,7 @@ public void printInjuried(int simAlltime, int simDay) {
 		
 	}
 }
-
+//method to combine the injury and treatment methods, determines who gets injuried
 public void injuryandtreatment(worker injuried,int simDay, int simAlltime, int simMaxtime, String timeofinjury) {
 	if(simAlltime!=simMaxtime) {
 	if(generator.nextInt((10-getDensity())*20)==0) {
@@ -283,19 +275,13 @@ public void injuryandtreatment(worker injuried,int simDay, int simAlltime, int s
 			LoopTreating(simAlltime,simDay);
 		}
 }
-public String calcAveragePerInjury(int numberOfTimes) {
+public String calcAveragePerInjury(int numberOfTimes) {//gives averages of results
 	double average=(double)numberOfTimes/(double)counterInjuries;
 	return String.format("%.1f", average);
 	
 }
-public String calcPrecentagePerInjury(int numberOfTimes) {
-	double average=(double)Double.parseDouble(calcAveragePerInjury(numberOfTimes));
-	double f =average*100;
-	return String.format("%.1f%%", f);
-	
-}
 
-public void showFactoryInfo(int Days, int hours) {
+public void showFactoryInfo(int Days, int hours) {//gives factory results as a table
 	calculateNumofPermaInjuries();
 	System.out.printf("%-3d|%-2d|%-4d|%-4d|%-3s|%-3s|%-1d|%-1d|%-4s|%-4s|%-4s|%-3d|%-4s|%-3d|%4s|%-4s|\n",
 			getID(),
@@ -337,6 +323,7 @@ public ArrayList<String> stringOfFactroyInfo() {
 	columnsArraylist.add(String.valueOf(MinProgressedInjury));
 	return columnsArraylist;
 }
+//setters and getters
 public int getNoOfWorkers() {
 	return noOfWorkers;
 }

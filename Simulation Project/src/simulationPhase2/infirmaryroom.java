@@ -6,7 +6,7 @@ public class infirmaryroom extends medicalintervention{
 	SecureRandom generator = new SecureRandom();
 	ToolsofStrings tos = new ToolsofStrings();
 	  public infirmaryroom() {
-		 Rangeofcaplbility=/*6;*/generator.nextInt(3)+4;
+		 Rangeofcaplbility=/*6;*/generator.nextInt(3)+4;//higher at this phase
 		 
 	 }
 

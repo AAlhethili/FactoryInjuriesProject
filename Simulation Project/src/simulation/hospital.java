@@ -20,6 +20,7 @@ public class hospital extends medicalintervention{
 
 	@Override
 	public void treatmentadminstraition(worker injuried,int simDay, int simTime, factory workerFactory) {
+		//start arrival countdown and randomly gives time
 		if(!injuried.isTreatdByInfermaryRoom()) {
 		if ((((!injuried.isCalledHospital())&&simTime%simDay!=0))) {
 		if(generator.nextBoolean()) {
@@ -37,6 +38,7 @@ public class hospital extends medicalintervention{
 			injuried.setCalledHospital(true);
 		}
 	}
+		//caps injury liver at 100 at the end of the day
 	if(simTime%simDay==0) {
 		injuried.setProgressionofInjury(injuried.getProgressionofInjury()+(injuried.getHospitalarraivalTimeCountdown()*injuried.getProgressionRate()));
 		if(injuried.getProgressionofInjury()>100) {
@@ -44,7 +46,7 @@ public class hospital extends medicalintervention{
 		}
 	}
 
-	if((injuried.getHospitalarraivalTimeCountdown()==1||simTime%simDay==0)&&!injuried.isTreated()) {
+	if((injuried.getHospitalarraivalTimeCountdown()==1||simTime%simDay==0)&&!injuried.isTreated()) {//checks if progression is over 100, add permanant injury and display inuried status
 		if(injuried.getProgressionofInjury()>=100){
 			workerFactory.setMaxProgressedInjury(100);
 			injuried.setPermenatlyInjured(true);
@@ -57,7 +59,7 @@ public class hospital extends medicalintervention{
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");
 			injuried.FinishedTreatment();
 		}
-		else {
+		else {// if ambulance arrived before 100% it heals and displays status
 			if(workerFactory.getMaxProgressedInjury()<injuried.getProgressionofInjury()) {
 			workerFactory.setMaxProgressedInjury(injuried.getProgressionofInjury());}
 			if(injuried.getProgressionofInjury()<=workerFactory.getMinProgressedInjury()) {
@@ -78,7 +80,7 @@ public class hospital extends medicalintervention{
 				}
 			}
 
-	if(simTime%simDay!=0) {
+	if(simTime%simDay!=0) {//if it is not the end of the day it progresses injury
 		if(injuried.isProgress()) {
 	injuried.progressInjury();}
 		else {
@@ -86,7 +88,7 @@ public class hospital extends medicalintervention{
 		}
 	}
 		}
-	if(injuried.getHospitalarraivalTimeCountdown()>0&&injuried.isCalledHospital()) {
+	if(injuried.getHospitalarraivalTimeCountdown()>0&&injuried.isCalledHospital()) {//countdown of ambulance arrival
 	injuried.setHospitalarraivalTimeCountdown(injuried.getHospitalarraivalTimeCountdown() - 1);
 	}
 	}

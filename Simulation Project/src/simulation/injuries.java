@@ -1,5 +1,5 @@
 package simulation;
-
+//injuries and their catagory
 public enum injuries {
 	Brokenbonel(7, 0, 3, padRight("Broken Bone", 20)), 
 	burn(10, 2, 1, padRight("Burn", 20)),
@@ -19,9 +19,9 @@ public enum injuries {
 	String name;
 	
 	injuries(int pf, int cat, int lvl, String nameof){
-		progressionfactor=pf;
-		catogery=cat;
-		level=lvl;
+		progressionfactor=pf;//initial progression rate
+		catogery=cat;//if the sama catagory as a medical condition it progresses faster
+		level=lvl;//capability needed to be treated by infermary 
 		name=nameof;
 		
 	}

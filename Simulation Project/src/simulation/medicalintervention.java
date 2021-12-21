@@ -1,6 +1,6 @@
 package simulation;
 
-
+//abstract class to combine differen treatment method
 public abstract class medicalintervention implements medicaltreatmant {
 int Rangeofcaplbility;
 

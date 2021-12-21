@@ -7,15 +7,18 @@ import java.util.stream.Collectors;
 
 
 public class worker {
-
+//most variables are stored in this class as it is the one that gets passed down from class to class
 SecureRandom generator = new SecureRandom();
-public int id;
+//info varaibles
+private int id;
+private double age;
+private double regularCheckUprate;
+//injury variables
+private boolean knowsHowtoUseMedikit;
 private int hospitalarraivalTimeCountdown;
 private String timeOfInjury;
 private int waitTime;
 private int ArrivalTimenoCountdown;
-private double age;
-private double regularCheckUprate;
 private boolean injuired;
 private boolean medicalWorkerAvailable;
 private boolean calledHospital;
@@ -27,7 +30,6 @@ private boolean CheckedMedicalWorker;
 private boolean tratedByMedicalWorker;
 private boolean CheckedInfermary;
 private boolean treatdByInfermaryRoom;
-private boolean knowsHowtoUseMedikit;
 private boolean Treated;
 private boolean permenatlyInjured;
 private boolean injuryFullyProgressed;
@@ -35,13 +37,13 @@ private int progressionRate;
 private int peopleAround;
 private int progressionOfInjury;
 private injuries current;
-private ArrayList<medicalcondition> conds = new ArrayList<medicalcondition>();
-injuries[] injurytypes = injuries.values();
+private ArrayList<medicalcondition> conds = new ArrayList<medicalcondition>();//list of medical condition of the worker
+injuries[] injurytypes = injuries.values();//get list of condtions to set condition from
 
-public worker() {
-	
+public worker() {//no args constructor used in different class for medically trained worker
 }
 
+//create the worker
 public worker(int id, double avg, double avgCheckUpRate) {
 	
 	this.id=id;
@@ -62,7 +64,8 @@ public worker(int id, double avg, double avgCheckUpRate) {
 	else {
 		knowsHowtoUseMedikit=false;
 	}
-	age=generator.nextGaussian()*10+avg;
+	//choose age around average
+	age=generator.nextGaussian()*10+avg; 
 	while(age<20||age>70) {
 		age=generator.nextGaussian()*10+avg;
 	}
@@ -105,6 +108,7 @@ public worker(int id, double avg, double avgCheckUpRate) {
 	setCurrent(injuries.None);
 }	
 
+//the methods which starts the progress of the simulation, sets all variables to default and generate random injury
 public void addinjury(factory myfactory, String timeofinjury) {
 	this.timeOfInjury=timeofinjury;
 	setProgress(false);
@@ -142,7 +146,7 @@ public void addinjury(factory myfactory, String timeofinjury) {
 	myfactory.counterInitialProgressionOfInjury+=CombinedProgressionRate;
 	if(generator.nextBoolean()) {
 		
-		peopleAround=myfactory.getDensity()+generator.nextInt(4);
+		peopleAround=myfactory.getDensity()+generator.nextInt(4);//sees number of people around based on density of the factory per room
 	}
 	else {
 		
@@ -155,6 +159,7 @@ public void addinjury(factory myfactory, String timeofinjury) {
 	myfactory.counterInjuries+=1;
 	
 }
+//returns how much regular medical check up affect injury progression
 public int regularCheckupTime(double freaquency) {
 	int TC=0;
 	switch((int)Math.round(freaquency)) {

@@ -1,5 +1,5 @@
 package simulation;
-
+//methods used to display boolean results as strings, and pad text
 public class ToolsofStrings {
 	public ToolsofStrings() {
 	}

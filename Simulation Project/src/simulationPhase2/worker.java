@@ -56,7 +56,7 @@ public worker(int id, double avg, double avgCheckUpRate) {
 	CheckedMedicalWorker=false;
 	calledHospital=false;
 	injuryFullyProgressed=false;
-	if(generator.nextInt(10)==0) {
+	if(generator.nextInt(10)==0) {//same as phase one to compare results
 		knowsHowtoUseMedikit=true;
 	}
 	else {

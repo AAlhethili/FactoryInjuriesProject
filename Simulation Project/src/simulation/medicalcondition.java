@@ -1,5 +1,5 @@
 package simulation;
-
+//conditions and their varibals
 public enum medicalcondition {
 	heartissues(4, 1),
 	skinissues(2,2),

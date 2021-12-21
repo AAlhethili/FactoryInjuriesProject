@@ -67,11 +67,9 @@ public void startPhase2(int noOfDays, int noOfHours, int noOfFactories, ArrayLis
 			selectedFactory = factorylist.get(factory);
 			Data.add(selectedFactory.stringOfFactroyInfo());
 		}
-		String[][] DataArray = new String[Data.size()][];
-		for (int i = 0; i < Data.size(); i++) {
-		    ArrayList<String> row = Data.get(i);
-		    DataArray[i] = row.toArray(new String[row.size()]);
-		};
+		
+		//the following code used to gather all data from all phases using differen arrays and arraylists as arraylists easier to handle
+		String[][] DataArray = twoDArrayListToArray(Data);
 		printTable(DataArray);
 		System.out.println();
 		System.out.println();
@@ -114,17 +112,13 @@ public void startPhase2(int noOfDays, int noOfHours, int noOfFactories, ArrayLis
 						phase2array.add((String) phase2data.get(data)); 
 				 }
 				}
-			dataCombined.add(phase1array);
+			
+			dataCombined.add(phase1array);//combine all phases data to display them
 			dataCombined.add(phase2array);
 			dataCombined.add(storeData);
-//			System.out.println(dataCombined.toString());
-			String[][] CombinedDataArray = new String[dataCombined.size()][];
-			for (int i = 0; i < dataCombined.size(); i++) {
-			    ArrayList<String> row = dataCombined.get(i);
-			    CombinedDataArray[i] = row.toArray(new String[row.size()]);
-			};
+			String[][] CombinedDataArray = twoDArrayListToArray(dataCombined);
 		
-printTable(CombinedDataArray);
+			printTable(CombinedDataArray);//print data as table
 
 
 
@@ -133,24 +127,7 @@ printTable(CombinedDataArray);
 
 
 		
-//	continues=true;
-//	while(continues) {
-//		try {
-//		System.out.print("Please enter 1 to start phase 2 or 0 to stop. ");
-//		input=new Scanner(System.in);
-//		phase2begin=input.nextInt();
-//		if(!(phase2begin!=1||phase2begin!=0)) {
-//			throw new IntegerMustBePositiveException();	
-//			}
-//	if(phase2begin==1) {
-//		phase2.runphase2(simDays, workhours, noFactories);
-//	}
-//		continues=false;
-//		}catch(IntegerMustBePositiveException | InputMismatchException e) {
-//			System.out.println("0 or 1 please, try again ");
-//		}
-//	}
-//
+
 }
 
 
@@ -295,4 +272,11 @@ public static ArrayList<ArrayList<String>> giveHeader() {
 	Data.add(Header5);
 	return Data;
 }
+public static String[][] twoDArrayListToArray(ArrayList<ArrayList<String>> arrayList2D){
+	String[][] Array2D = new String[arrayList2D.size()][];
+	for (int i = 0; i < arrayList2D.size(); i++) {
+	    ArrayList<String> row = arrayList2D.get(i);
+	    Array2D[i] = row.toArray(new String[row.size()]);};
+	    return Array2D;
+	}
 }

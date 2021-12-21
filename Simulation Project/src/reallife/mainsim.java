@@ -11,6 +11,7 @@ import simulation.worker;
 public class mainsim {
 public static void main(String[] args) {
 	phase2Simu begin = new phase2Simu();
+	//phase 2 constructor
 	Scanner input = new Scanner(System.in);
 	//used to Randomize variables
 	boolean continues=true;
@@ -63,7 +64,7 @@ public static void main(String[] args) {
 				}
 	}
 	
-	System.out.print("Simulation starting");
+	System.out.print("Simulation starting");//cosmetic effect :)
 	wait(1000);
 	System.out.print(".");
 	wait(1000);
@@ -101,6 +102,7 @@ public static void main(String[] args) {
 	}
 	System.out.println("********************************************************************************************************************************\n\n\n\n");
 	System.out.printf("\t\t\t\t\t\t\tFactory List\n"); 
+	//Get Average data per factory
 	for(int factory = 0; factory<factorylist.size(); factory++) {
 		selectedFactory = factorylist.get(factory);	}	
 		ArrayList<ArrayList<String>> Data = giveHeader();
@@ -108,21 +110,17 @@ public static void main(String[] args) {
 			selectedFactory = factorylist.get(factory);
 			Data.add(selectedFactory.stringOfFactroyInfo());
 		}
-		String[][] DataArray = new String[Data.size()][];
-		for (int i = 0; i < Data.size(); i++) {
-		    ArrayList<String> row = Data.get(i);
-		    DataArray[i] = row.toArray(new String[row.size()]);
-		};
-		printTable(DataArray);
+		//2d Array list to 2d Array
+		String[][] DataArray = twoDArrayListToArray(Data);
 		
-
-ArrayList<Object> phase1= new ArrayList<Object>();
-phase1=gettAllData(factorylist);
-
-
+		//Store All data from phase 1 to pass to phase 2
+		ArrayList<Object> phase1= new ArrayList<Object>();
+		phase1=gettAllData(factorylist);
 
 
-		
+
+
+		//Input to start phase 2
 	continues=true;
 	while(continues) {
 		try {
@@ -285,4 +283,11 @@ public static ArrayList<ArrayList<String>> giveHeader() {
 	Data.add(Header5);
 	return Data;
 }
+public static String[][] twoDArrayListToArray(ArrayList<ArrayList<String>> arrayList2D){
+	String[][] Array2D = new String[arrayList2D.size()][];
+	for (int i = 0; i < arrayList2D.size(); i++) {
+	    ArrayList<String> row = arrayList2D.get(i);
+	    Array2D[i] = row.toArray(new String[row.size()]);};
+	    return Array2D;
+	}
 }
