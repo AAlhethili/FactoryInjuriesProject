@@ -1,4 +1,4 @@
-package simulation;
+package simulationPhase2;
 
 public class smartFirstAidkit extends FirstAidKit {
 

@@ -1,4 +1,4 @@
-package simulation;
+package simulationPhase2;
 import java.security.SecureRandom;
 
 public class hospital extends medicalintervention{
@@ -61,10 +61,12 @@ public class hospital extends medicalintervention{
 			if(workerFactory.getMaxProgressedInjury()<injuried.getProgressionofInjury()) {
 			workerFactory.setMaxProgressedInjury(injuried.getProgressionofInjury());}
 			if(injuried.getProgressionofInjury()<=workerFactory.getMinProgressedInjury()) {
-				if(injuried.getProgressionofInjury()<0) {
-					injuried.setProgressionofInjury(0);
+				if(injuried.getProgressionofInjury()<=workerFactory.getMinProgressedInjury()) {
+					if(injuried.getProgressionofInjury()<0) {
+						injuried.setProgressionofInjury(0);
+					}
+					workerFactory.setMinProgressedInjury(injuried.getProgressionofInjury());
 				}
-				workerFactory.setMinProgressedInjury(injuried.getProgressionofInjury());
 			}
 			workerFactory.counterTreatmentByHospital+=1;
 			System.out.println("--------------------------------------------------------------------------------------------------------------------------------");

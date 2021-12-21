@@ -1,68 +1,27 @@
-package reallife;
+package reaLifePhase2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import reaLifePhase2.phase2Simu;
-import simulation.factory;
-import simulation.worker;
+import simulationPhase2.factory;
+import simulationPhase2.worker;
 
-public class mainsim {
-public static void main(String[] args) {
-	phase2Simu begin = new phase2Simu();
+public class phase2Simu {
+	public phase2Simu() {
+	}
+public void startPhase2(int noOfDays, int noOfHours, int noOfFactories, ArrayList<Object> phase1) {
+
 	Scanner input = new Scanner(System.in);
 	//used to Randomize variables
 	boolean continues=true;
-	int simDays=0; 
+	int simDays=noOfDays; 
 	//Number of days the simulation will run
-	int workhours=0; 
+	int workhours=noOfHours; 
 	//Number of work hours of a factory, used to get minutes of simulation
-	int noFactories=0; 
+	int noFactories=noOfFactories; 
 	//number of factories in simulation
-	System.out.println("Welcome to the factory daily injuries simulator!");
-	while(continues) {
-				try {
-				System.out.print("Please enter the number of days the simulation will run for: ");
-				input=new Scanner(System.in);
-				simDays=input.nextInt();
-				if(!(simDays>0)) {
-					throw new IntegerMustBePositiveException();	
-					}
-				continues=false;
-				}catch(IntegerMustBePositiveException | InputMismatchException e) {
-					System.out.println("Days must integer be greater than 0, try again ");
-				}
-	}
-	continues=true;
-	while(continues) {
-				try {
-				System.out.print("Please enter the number of daily work hours of the factories: ");
-				input=new Scanner(System.in);
-				workhours=input.nextInt();
-				if(!(workhours>0)||workhours>24) {
-					throw new IntegerMustBePositiveException();	
-					}
-				continues=false;
-				}catch(IntegerMustBePositiveException | InputMismatchException e) {
-					System.out.println("work hours must be integer greater than 0 and less than 24, try again ");
-				}
-	}
-	continues=true;
-	while(continues) {
-				try {
-				System.out.print("Please enter the number of factories: ");
-				input=new Scanner(System.in);
-				noFactories=input.nextInt();
-				if(!(noFactories>0)) {
-					throw new IntegerMustBePositiveException();	
-					}
-				continues=false;
-				}catch(IntegerMustBePositiveException | InputMismatchException e) {
-				System.out.println("Number of factories must be integer greater than 0, try again ");
-				}
-	}
-	
+
 	System.out.print("Simulation starting");
 	wait(1000);
 	System.out.print(".");
@@ -114,33 +73,84 @@ public static void main(String[] args) {
 		    DataArray[i] = row.toArray(new String[row.size()]);
 		};
 		printTable(DataArray);
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		ArrayList<ArrayList<String>>dataCombined = new ArrayList<ArrayList<String>>();
+		ArrayList<String> storeData = new ArrayList<String>();
+		ArrayList<String> phase2array = new ArrayList<String>();
+		ArrayList<String> phase1array = new ArrayList<String>();
+		ArrayList<Object> phase2data = new ArrayList<Object>();
+		phase2data = gettAllData(factorylist);
 		
-
-ArrayList<Object> phase1= new ArrayList<Object>();
-phase1=gettAllData(factorylist);
-
-
-
-
-		
-	continues=true;
-	while(continues) {
-		try {
-		System.out.print("Please enter 1 to start phase 2 or 0 to stop. ");
-		input=new Scanner(System.in);
-		int phase2begin=input.nextInt();
-		if(!(phase2begin!=1||phase2begin!=0)) {
-			throw new IntegerMustBePositiveException();	
+			for(int data = 0; data<phase1.size(); data++) {
+				if(data==0) {
+					storeData.add("Change");
+				}
+				else {
+				if (Double.class.isInstance(phase1.get(data))){
+				storeData.add(String.valueOf(Math.round((((double) phase2data.get(data)-(double)phase1.get(data))/(double) phase2data.get(data))*100))); 
+				 }
+				 else {
+						storeData.add("Added"); 
+				 }
+				}
 			}
-	if(phase2begin==1) {
-		begin.startPhase2(simDays, workhours, noFactories, phase1);
-	}
-		continues=false;
-		}catch(IntegerMustBePositiveException | InputMismatchException e) {
-			System.out.println("0 or 1 please, try again ");
-		}
-	}
+			for(int data = 0; data<phase1.size(); data++) {
+		
+				if (Double.class.isInstance(phase1.get(data))){
+				phase1array.add(String.valueOf(phase1.get(data))); 
+				 }
+				 else {
+						phase1array.add((String) phase1.get(data)); 
+				 }
+				}
+			for(int data = 0; data<phase2data.size(); data++) {
+				
+				if (Double.class.isInstance(phase2data.get(data))){
+				phase2array.add(String.valueOf(phase2data.get(data))); 
+				 }
+				 else {
+						phase2array.add((String) phase2data.get(data)); 
+				 }
+				}
+			dataCombined.add(phase1array);
+			dataCombined.add(phase2array);
+			dataCombined.add(storeData);
+//			System.out.println(dataCombined.toString());
+			String[][] CombinedDataArray = new String[dataCombined.size()][];
+			for (int i = 0; i < dataCombined.size(); i++) {
+			    ArrayList<String> row = dataCombined.get(i);
+			    CombinedDataArray[i] = row.toArray(new String[row.size()]);
+			};
+		
+printTable(CombinedDataArray);
 
+
+
+
+
+
+
+		
+//	continues=true;
+//	while(continues) {
+//		try {
+//		System.out.print("Please enter 1 to start phase 2 or 0 to stop. ");
+//		input=new Scanner(System.in);
+//		phase2begin=input.nextInt();
+//		if(!(phase2begin!=1||phase2begin!=0)) {
+//			throw new IntegerMustBePositiveException();	
+//			}
+//	if(phase2begin==1) {
+//		phase2.runphase2(simDays, workhours, noFactories);
+//	}
+//		continues=false;
+//		}catch(IntegerMustBePositiveException | InputMismatchException e) {
+//			System.out.println("0 or 1 please, try again ");
+//		}
+//	}
+//
 }
 
 
@@ -208,13 +218,13 @@ public static void printTable(String[][] table) {
 }
 public static ArrayList<Object> gettAllData(ArrayList<factory> factorylist){
 	 ArrayList<Object> list = new ArrayList<Object>();
-	 list.add("Phase 1");
+	 list.add("Phase 2");
 	 double age=0;
 	 double injurycount=0;
 	 double injuryseverity=0;
 	 double permainj=0;
-	 String SMk = "No";
-	 String Reg = "No";
+	 String SMk = "Yes";
+	 String Reg = "Yes";
 	 double cur=0;
 	 double infread=0;
 	 double inftrt=0;
@@ -226,7 +236,7 @@ public static ArrayList<Object> gettAllData(ArrayList<factory> factorylist){
 	 double max=0;
 	 double min=0;
 	for(int factory = 0; factory<factorylist.size(); factory++) {
-		simulation.factory selectedFactory = factorylist.get(factory);
+	factory selectedFactory = factorylist.get(factory);
 	age+=Math.round(selectedFactory.calculateAvgAge());
 	injurycount+=selectedFactory.getCounterInjuries();
 	injuryseverity+=selectedFactory.getCounterInjuryLevel();

@@ -1,13 +1,12 @@
-package simulation;
+package simulationPhase2;
 
 import java.security.SecureRandom;
 
 public class infirmaryroom extends medicalintervention{
 	SecureRandom generator = new SecureRandom();
 	ToolsofStrings tos = new ToolsofStrings();
-	int Rangeofcaplbility;
 	  public infirmaryroom() {
-		 Rangeofcaplbility=/*6;*/generator.nextInt(3)+1;
+		 Rangeofcaplbility=/*6;*/generator.nextInt(3)+4;
 		 
 	 }
 
@@ -42,14 +41,6 @@ public class infirmaryroom extends medicalintervention{
 				}
 			}
 		}
-	}
-
-	public int getRangeofcaplbility() {
-		return Rangeofcaplbility;
-	}
-
-	public void setRangeofcaplbility(int rangeofcaplbility) {
-		Rangeofcaplbility = rangeofcaplbility;
 	}
 		
 }

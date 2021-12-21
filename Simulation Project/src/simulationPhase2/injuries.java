@@ -1,4 +1,4 @@
-package simulation;
+package simulationPhase2;
 
 public enum injuries {
 	Brokenbonel(7, 0, 3, padRight("Broken Bone", 20)), 

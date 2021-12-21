@@ -1,4 +1,4 @@
-package simulation;
+package simulationPhase2;
 
 import java.security.SecureRandom;
 
