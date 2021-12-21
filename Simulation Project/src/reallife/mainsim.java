@@ -112,7 +112,7 @@ public static void main(String[] args) {
 		}
 		//2d Array list to 2d Array
 		String[][] DataArray = twoDArrayListToArray(Data);
-		
+		printTable(DataArray);
 		//Store All data from phase 1 to pass to phase 2
 		ArrayList<Object> phase1= new ArrayList<Object>();
 		phase1=gettAllData(factorylist);

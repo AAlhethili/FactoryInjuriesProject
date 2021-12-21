@@ -87,7 +87,7 @@ public void startPhase2(int noOfDays, int noOfHours, int noOfFactories, ArrayLis
 				}
 				else {
 				if (Double.class.isInstance(phase1.get(data))){
-				storeData.add(String.valueOf(Math.round((((double) phase2data.get(data)-(double)phase1.get(data))/(double) phase2data.get(data))*100))); 
+				storeData.add(String.valueOf(Math.round((((double) phase2data.get(data)-(double)phase1.get(data))/(double) phase2data.get(data))*100))+"%"); 
 				 }
 				 else {
 						storeData.add("Added"); 
@@ -97,7 +97,7 @@ public void startPhase2(int noOfDays, int noOfHours, int noOfFactories, ArrayLis
 			for(int data = 0; data<phase1.size(); data++) {
 		
 				if (Double.class.isInstance(phase1.get(data))){
-				phase1array.add(String.valueOf(phase1.get(data))); 
+				phase1array.add(String.valueOf(Math.round((double)phase1.get(data)))); 
 				 }
 				 else {
 						phase1array.add((String) phase1.get(data)); 
@@ -106,7 +106,7 @@ public void startPhase2(int noOfDays, int noOfHours, int noOfFactories, ArrayLis
 			for(int data = 0; data<phase2data.size(); data++) {
 				
 				if (Double.class.isInstance(phase2data.get(data))){
-				phase2array.add(String.valueOf(phase2data.get(data))); 
+				phase2array.add(String.valueOf(Math.round((double)phase2data.get(data)))); 
 				 }
 				 else {
 						phase2array.add((String) phase2data.get(data)); 
